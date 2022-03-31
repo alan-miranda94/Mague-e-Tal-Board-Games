@@ -3,6 +3,7 @@
     "name": "Mague-e-Tal-Board-Games",
     "slug": "Mague-e-Tal-Board-Games",
     "version": "1.0.0",
+    "orientation": "landscape",
     "assetBundlePatterns": [
       "**/*"
     ]

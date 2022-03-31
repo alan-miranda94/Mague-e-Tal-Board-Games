@@ -1,13 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import React,{useEffect} from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { NavigationContainer,  DefaultTheme } from '@react-navigation/native'
+import MainStacks from './src/navigation/MainStacks'
+import * as Updates from 'expo-updates'
+
+const Theme = {
+  ...DefaultTheme,
+  colors:{
+    ...DefaultTheme.colors,
+    background: "#3c3c3c"
+  }
+}
+
 
 export default function App() {
+  useEffect(()=>{
+    async function updateApp(){
+      const {isAvailable} = Updates.checkForUpdateAsync()
+      if(isAvailable){
+        await Updates.fetchUpdateAsync()
+        await Updates.reloadAsync()
+      }
+    }
+    updateApp()
+  },[])
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer theme={Theme}>
+      <MainStacks/>
+      <StatusBar style="auto" hidden = {true} />
+    </NavigationContainer>
   );
 }
 
