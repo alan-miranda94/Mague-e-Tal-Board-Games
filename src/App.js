@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar'
 import React,{useEffect} from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer,  DefaultTheme } from '@react-navigation/native'
-import MainStacks from './src/navigation/MainStacks'
+import MainStacks from './navigation/MainStacks'
 import * as Updates from 'expo-updates'
+import { useLoadFonts } from './hooks/useFonts'
 
 const Theme = {
   ...DefaultTheme,
@@ -23,8 +24,18 @@ export default function App() {
         await Updates.reloadAsync()
       }
     }
+    const LoadFonts = async () => {
+      await useFonts()
+    }
+
     updateApp()
+    LoadFonts()
+
   },[])
+
+
+
+  useLoadFonts()
 
   return (
     <NavigationContainer theme={Theme}>

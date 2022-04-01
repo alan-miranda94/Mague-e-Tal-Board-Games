@@ -8,7 +8,8 @@ import Card from '../../components/Card'
 import IMAGE, {DECK} from '../../constants/images'
 import {LEVELS} from '../../utils/Contants'
 import Button from '../../components/Button';
-import Pausado from './Pausado';
+import Pausado from './Pausado'
+import GameEnd from './GameEnd'
 //import { useNavigation } from '@react-navigation/core';
 
 
@@ -19,7 +20,9 @@ const Width = Dimensions.get('window').width
 function GameScreen({ route }) {
   const { level } = route.params;
   const [showModal, setShowModal] = useState(false)
-  const coupleCardsNumber = LEVELS[level].quantity;
+  const [showWin, setShowWin] = useState(false)
+
+  const coupleCardsNumber = LEVELS[level-1].quantity;
   const [cardRow, setCardRow] = useState([]);
   const [selecteds, setSelecteds] = useState([]);
   const [combinedCards, setCombinedCards] = useState([]);
@@ -31,7 +34,7 @@ function GameScreen({ route }) {
  //pega a quantidade de cartas e embaralha elas
   useEffect(() => {
    // navigation.setOptions({ title: `Nível ${level.level}` })
-   console.log(level)
+  
     let cardList = [];
     let id = 0;
     for (let i = 0; i < coupleCardsNumber; i++) {
@@ -56,8 +59,8 @@ function GameScreen({ route }) {
 
     const rowList = [];
 
-    for (let i = 0; i < cardList.length; i = i + 4) {
-      rowList.push(cardList.slice(i, i + 4));
+    for (let i = 0; i < cardList.length; i = i + coupleCardsNumber) {
+      rowList.push(cardList.slice(i, i + coupleCardsNumber));
     }
 
     setCardRow(rowList);
@@ -79,7 +82,13 @@ function GameScreen({ route }) {
         setSelecteds([]);
       },1 * 1000);
     }
-  }, [selecteds]);
+  }, [selecteds])
+
+  useEffect(()=>{
+    if(combinedCards.length == coupleCardsNumber){
+      setShowWin(true)
+    }
+  },[combinedCards])
 
   function removeCards(card){
     const newCardRow = cardRow.map((cards, index)=>{
@@ -131,15 +140,15 @@ function GameScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground 
+      {/* <ImageBackground 
         style={styles.background}
         imageStyle={{opacity:0.4}}
         source={IMAGE.BackGround}
         resizeMode="stretch"
-      />
-      {combinedCards.length < coupleCardsNumber && (
+      /> */}
+        
         <View style={styles.cardsContainer}>
-          {/*LISTA QUE COMTEM AS LINHAS DE CARTAS*/}
+          {/*LISTA QUE COMTEM AS LINHAS DE CARTAS*/}          
           {cardRow.map((cardListRow, index) => (
             <View style={styles.cardRow} key={`cardrow_${index}`}>
               {/*LISTA QUE COMTEM UMA LINHA DE CARTAS*/}
@@ -173,37 +182,37 @@ function GameScreen({ route }) {
                 </TouchableWithoutFeedback>
               ))}
             </View>
+            
           ))}
         </View>
-      )}
-      {combinedCards.length == coupleCardsNumber && (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>PARABÉNS</Text>
-          <Text style={styles.resultText}>
-            Você concluiu com sucesso o nível {5} com o tempo de:
-          </Text>
-        </View>
-      )}
-      <View style={styles.pares}>
+        <View style={styles.pares}>
         <FlatList
           data={par}
           horizontal={true}
           keyExtractor={(k)=>k.id}
           renderItem={({ item, index }) => (
-            <View style={[styles.cardImage,{marginLeft:index===0?2:-20}]}>
+            <View style={[styles.cardImage,{marginLeft:index===0?2:-40}]}>
               <Image
                 style={{flex:1}}
                 source={DECK[item.type]}
-                resizeMode="stretch"
+                resizeMode="contain"
               />
             </View>
           )}
         />
-      </View>
+    </View>
+   
+            
       <Button style={styles.pauseBt} onPress={()=> setShowModal(true)} type='Btn_Pause'/>
       <Pausado
+       level={level}
        show={showModal}
        setShow={setShowModal}
+      />
+      <GameEnd
+       level={level}
+       show={showWin}
+       setShow={setShowWin}
       />
     </View>
   );
@@ -213,28 +222,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    //backgroundColor: 'red',
+    alignItems:'center',
+    paddingBottom:8
   },
   cardsContainer: {
-    //display: 'flex',
-    width:'80%',
-    height:'60%',
-    position: 'absolute', 
-    left: '10%', 
-    top: "8%",    
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flex:1,
+    margin:16,
+    marginBottom:0,
+    width: '85%',
     alignItems: 'center',
     justifyContent: 'center',
-    //marginTop:-100,
-    //backgroundColor:'red',
+    backgroundColor:'#8C2300',
+    borderWidth:4,
+    
     
   },
+
   cardRow: {
-    //height:'33%',
-    //width:'33%',
     flexDirection: 'row',
-    //backgroundColor:"gray",
     marginBottom:8,
     
   },
@@ -246,13 +251,14 @@ const styles = StyleSheet.create({
     height:'15%',
 
   },
+
   cardContainer: {
-    margin: 10,
+    //margin: 10,
     height: '100%',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'pink',
+    
   },
  
   resultContainer: {
@@ -271,22 +277,21 @@ const styles = StyleSheet.create({
     //backgroundColor: COLORS.secondary,
     alignItems: 'center',
   },
+
   pares:{
-    position: 'absolute', 
-    left: '8%', 
-    bottom: "8%", 
-    height:'15%', 
+    height:'20%', 
     width: '85%',
-   // backgroundColor: 'blue',
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
+    backgroundColor:'#8C2300',
+    borderWidth:4,
+    borderTopWidth:0,
+    padding:4
   },
   cardImage: {    
-    height: "100%",
-    //width: "100%",
-    //backgroundColor:'green'
-    
-    
+    //height: "100%",
+    //width:40, 
+    //backgroundColor:'rgba(0,0,0,.5)'
     
   },
 });

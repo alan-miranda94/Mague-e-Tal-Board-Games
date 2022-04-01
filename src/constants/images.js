@@ -9,18 +9,19 @@ import Btn_Restart from '../assets/MemoryGame/Interface/Button/btn_reiniciar.png
 import Btn_About from '../assets/MemoryGame/Interface/Button/btn_sobre.png'
 import Btn_Back from '../assets/MemoryGame/Interface/Button/btn_voltar.png'
 import PauseGame from '../assets/MemoryGame/Interface/popup_pausado.png' 
+import Btn_Level from  '../assets/MemoryGame/Interface/Button/btn_selecao_fases.png'
 
 //GAME END
-import Start_Rank_ON from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/estrela_ranque.png'
-import Start_Rank_OFF from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/estrela_ranque_preta.png' 
-import Face_Don from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/face_don.png'
-import Face_Jo from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/face_jo.png'
-import Face_Otto from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/face_otto.png'
-import Face_Riso from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/face_riso.png'
-import Popup_Don from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/popup_ranque_don.png'
-import Popup_Jo from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/popup_ranque_jo.png'
-import Popup_Otto from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/popup_ranque_otto.png'
-import Popup_Riso from '../assets/MemoryGame/Interface/Fim de Jogo, Ranque/popup_ranque_riso.png'
+import Start_Rank_ON from '../assets/MemoryGame/Interface/other/estrela_ranque.png'
+import Start_Rank_OFF from '../assets/MemoryGame/Interface/other/estrela_ranque_preta.png' 
+import Face_Don from '../assets/MemoryGame/Interface/other/face_don.png'
+import Face_Jo from '../assets/MemoryGame/Interface/other/face_jo.png'
+import Face_Otto from '../assets/MemoryGame/Interface/other/face_otto.png'
+import Face_Riso from '../assets/MemoryGame/Interface/other/face_riso.png'
+import Popup_Don from '../assets/MemoryGame/Interface/other/popup_ranque_don.png'
+import Popup_Jo from '../assets/MemoryGame/Interface/other/popup_ranque_jo.png'
+import Popup_Otto from '../assets/MemoryGame/Interface/other/popup_ranque_otto.png'
+import Popup_Riso from '../assets/MemoryGame/Interface/other/popup_ranque_riso.png'
 
 //FRONTE OF CARD
 import Bee from '../assets/MemoryGame/Cartas/Abelha.png'
@@ -67,6 +68,7 @@ export const BUTTONS ={
     Btn_Menu,
     Btn_Pause,
     Btn_Restart,
+    Btn_Level
 }
 
 const IMAGE = {

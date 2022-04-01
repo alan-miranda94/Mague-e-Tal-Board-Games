@@ -1,3 +1,5 @@
+import {LEVELS} from './Contants'
+
 export function shuffle(array) {
   let currentIndex = array.length,
     temporaryValue,
@@ -17,3 +19,11 @@ export function shuffle(array) {
 
   return array;
 }
+
+export function startPoints(level){
+  let startON = [false,false, false]
+  let actualLevel = LEVELS[level]
+
+
+
+} 
