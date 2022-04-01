@@ -5,6 +5,7 @@ import { NavigationContainer,  DefaultTheme } from '@react-navigation/native'
 import MainStacks from './navigation/MainStacks'
 import * as Updates from 'expo-updates'
 import { useLoadFonts } from './hooks/useFonts'
+import GameContextProvider from './contexts'
 
 const Theme = {
   ...DefaultTheme,
@@ -38,10 +39,12 @@ export default function App() {
   useLoadFonts()
 
   return (
-    <NavigationContainer theme={Theme}>
-      <MainStacks/>
-      <StatusBar style="auto" hidden = {true} />
-    </NavigationContainer>
+    <GameContextProvider>
+      <NavigationContainer theme={Theme}>
+        <MainStacks/>
+        <StatusBar style="auto" hidden = {true} />
+      </NavigationContainer>
+    </GameContextProvider>
   );
 }
 
