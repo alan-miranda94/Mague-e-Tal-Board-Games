@@ -9,9 +9,7 @@ const App = () => {
   const [level,setLevel] = useState([])
 
   useEffect(()=>{
-    dispatch({
-      type:'SET_SCORE'
-    })
+  
     setLevel(memoryGame.level)
   },[])
   
@@ -24,7 +22,7 @@ const App = () => {
         numColumns= {5}
         columnWrapperStyle={{alignItems:"center", justifyContent:'center'}}
         renderItem={ ({ item, index }) => (
-          <LevelButton  level={item.level}/>
+          <LevelButton  level={item.level} star = {item.star}/>
          
         )}
         keyExtractor={item => item.level}

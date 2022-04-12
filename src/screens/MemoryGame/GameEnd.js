@@ -14,9 +14,10 @@ import {
 import Button from '../../components/Button'
 import Star from '../../components/Star'
 import IMAGE, { DECK } from '../../constants/images'
-
+import { GameContext } from '../../contexts'
 
 export default props => {
+  const {state:{memoryGame}, dispatch} = useContext(GameContext)
   const navigation = useNavigation()
   const handleCloseButton = () => {
     props.setShow(false)
@@ -33,18 +34,18 @@ export default props => {
         <View style={styles.background} >
           <View style={styles.borderInside} >
             <View style={{ height: 200, width: 200, alignItems: 'center', justifyContent: 'center',}}>
-            <Star full style={{zIndex:10, position:'absolute', top:30, left:0}} size={60}/>
-            <Star full style={{zIndex:10, position:'absolute', alignItems:"center", justifyContent:"center", top:0}} size={60}/>
-            <Star full style={{zIndex:10, position:'absolute', top:30, right:0}} size={60}/>
+            <Star full = {props.star[0]} style={{zIndex:10, position:'absolute', top:30, left:0}} size={60}/>
+            <Star full = {props.star[1]} style={{zIndex:10, position:'absolute', alignItems:"center", justifyContent:"center", top:0}} size={60}/>
+            <Star full = {props.star[2]} style={{zIndex:10, position:'absolute', top:30, right:0}} size={60}/>
               <Image
                 style={{position:"absolute", height: 200, width: 200,  }}
-                source={IMAGE.Popup_Don}
+                source={IMAGE.Popup_Otto}
                 resizeMode="cover"
               />
               <View  style={{position:"absolute",alignItems:"center", justifyContent:"center",bottom:30}}>
               <Image
                 style={{ height: 100, width: 100,}}
-                source={IMAGE.Face_Don}
+                source={IMAGE.Face_Otto}
                 resizeMode="stretch"
               />
               </View>

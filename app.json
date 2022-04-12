@@ -6,7 +6,10 @@
     "orientation": "landscape",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.magueetal.boardgames"
+    }
   },
   "name": "Mague-e-Tal-Board-Games"
 }

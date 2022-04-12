@@ -25,8 +25,8 @@ export default props => {
                     perspective={1000}
                     flipHorizontal={true}
                     flipVertical={false}
-                    flip={props.flip}
-                    clickable={true}
+                    flip={props.fist?true:props.flip}
+                    clickable={props.clickable}
                 //style={props.style}
                 //onFlipEnd={(isFlipEnd)=>{console.log('isFlipEnd', isFlipEnd)}}
                 >

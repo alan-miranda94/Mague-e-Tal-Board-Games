@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { StyleSheet, Text, View, Dimensions, ImageBackground, Image } from 'react-native';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 //import { COLORS } from '../utils/StyleConstants';
 import { shuffle } from '../../utils/Utils';
 
+import { GameContext } from '../../contexts'
 import Card from '../../components/Card'
 import IMAGE, {DECK} from '../../constants/images'
 import {LEVELS} from '../../utils/Contants'
@@ -18,11 +19,11 @@ const Width = Dimensions.get('window').width
 
 
 function GameScreen({ route }) {
+  const {state:{memoryGame}, dispatch} = useContext(GameContext)
   const { level } = route.params;
   const [showModal, setShowModal] = useState(false)
   const [showWin, setShowWin] = useState(false)
-
-  const coupleCardsNumber = LEVELS[level-1].quantity;
+  const coupleCardsNumber = memoryGame.level[level-1].quantity;
   const [cardRow, setCardRow] = useState([]);
   const [selecteds, setSelecteds] = useState([]);
   const [combinedCards, setCombinedCards] = useState([]);
@@ -43,9 +44,10 @@ function GameScreen({ route }) {
         return { 
           id: id, 
           type: i + 1, 
-          selected: false,
+          selected:false,
           img:randomCard,
-          visible:true
+          visible:true,
+          fist:true
         
         };
       };
@@ -55,37 +57,77 @@ function GameScreen({ route }) {
       id++;
     }
 
-    cardList = shuffle(cardList);
-
-    const rowList = [];
+    cardList = shuffle(cardList)
+    const rowList = []
 
     for (let i = 0; i < cardList.length; i = i + coupleCardsNumber) {
-      rowList.push(cardList.slice(i, i + coupleCardsNumber));
+      rowList.push(cardList.slice(i, i + coupleCardsNumber))
     }
+    setCardRow(rowList)
 
-    setCardRow(rowList);
-  }, []);
+    //desvira a carta que mostrava viranda no commeço
+    setTimeout(() => {
+      const fistCardList = rowList.map((list)=>{
+        return list.map((card )=>{
+          return {...card, fist:false}
+        })
+      })
 
+      setCardRow(fistCardList)
+    }, 1 * 1000)
 
+  }, [])
+
+  const add_points= (points) => {
+    dispatch({
+      type:'ADD_REMOVE_POINTS',
+      payload:{
+        type:'ADD',
+        points:points,
+        level:level
+      }
+    })
+  }
+  const remove_points= (points) => {
+    dispatch({
+      type:'ADD_REMOVE_POINTS',
+      payload:{
+        type:'REMOVE',
+        points:points,
+        level:level
+      }
+    })
+  }
+  
   //VERIFICA SE DEU PARES IGUAIS 
   useEffect(() => {
     if (selecteds.length == 2) {
-      setTimeout(() => {
-        
+      setTimeout(() => {        
         if (selecteds[0].type === selecteds[1].type) {         
           let newPar = [selecteds[0], selecteds[1]]       
           setPar([...par, ...newPar])
           setCombinedCards([...combinedCards, selecteds[0].type])
           removeCards(selecteds[0])
+        }else{
+          remove_points(20)
         }
+        
+
 
         setSelecteds([]);
       },1 * 1000);
     }
   }, [selecteds])
 
+  /// verifica se finalizou o jogo e atribui as estrelas
   useEffect(()=>{
     if(combinedCards.length == coupleCardsNumber){
+      dispatch({
+        type:'SET_STARS',
+        payload:{          
+          level:level
+        }
+      })
       setShowWin(true)
     }
   },[combinedCards])
@@ -99,6 +141,7 @@ function GameScreen({ route }) {
        return c
       })
     })
+    add_points(80)
     setCardRow(newCardRow)
   }
 
@@ -167,6 +210,7 @@ function GameScreen({ route }) {
                 >
                   <Card
                     friction={6}
+                    fist={card.fist}
                     img={card.type}
                     perspective={1000}
                     flipHorizontal={true}
@@ -213,6 +257,7 @@ function GameScreen({ route }) {
        level={level}
        show={showWin}
        setShow={setShowWin}
+       star= {memoryGame.level[level-1].star}
       />
     </View>
   );

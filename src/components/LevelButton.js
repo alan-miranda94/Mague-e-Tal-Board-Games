@@ -9,7 +9,7 @@ import Star from './Star'
 const LevelButton = props => {
   const navigation = useNavigation()
   const route = useRoute()
-  const [stars, setStars] = useState([false,false,false])
+  const [stars, setStars] = useState(props.star)
 
   function onClickButton(level) {
     navigation.navigate('MemoryGame', { level });
@@ -26,7 +26,6 @@ const LevelButton = props => {
         style={styles.button}
         onPress={() => onClickButton(props.level)}
       >
-
         <ImageBackground
           style={styles.background}
           source={BUTTONS['Btn_Level']}
