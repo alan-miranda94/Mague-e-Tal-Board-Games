@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import FlipCard from 'react-native-flip-card'
-import IMAGE, { DECK } from '../constants/images'
+import IMAGE, { DECK , BACK} from '../constants/images'
 import {
     StyleSheet,
     Text,
@@ -27,13 +27,12 @@ export default props => {
                     flipVertical={false}
                     flip={props.fist?true:props.flip}
                     clickable={props.clickable}
-                //style={props.style}
-                //onFlipEnd={(isFlipEnd)=>{console.log('isFlipEnd', isFlipEnd)}}
+                
                 >
                     {/* Face Side */}
                     <Image
                         style={styles.card}
-                        source={IMAGE.Circle}
+                        source={BACK[props.cover]}
                         resizeMode="stretch"
                     />
                     {/* Back Side */}

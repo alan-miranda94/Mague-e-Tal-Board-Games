@@ -22,6 +22,9 @@ import Popup_Don from '../assets/MemoryGame/Interface/other/popup_ranque_don.png
 import Popup_Jo from '../assets/MemoryGame/Interface/other/popup_ranque_jo.png'
 import Popup_Otto from '../assets/MemoryGame/Interface/other/popup_ranque_otto.png'
 import Popup_Riso from '../assets/MemoryGame/Interface/other/popup_ranque_riso.png'
+import Efect_One from '../assets/MemoryGame/Interface/other/popup_ranque_efeito1.png'
+import Efect_Two from '../assets/MemoryGame/Interface/other/popup_ranque_efeito2.png'
+import Board from '../assets/MemoryGame/Interface/other/bg_tabuleiro.png'
 
 //FRONTE OF CARD
 import Bee from '../assets/MemoryGame/Cartas/Abelha.png'
@@ -61,6 +64,17 @@ export const DECK = [
     Turtle,
 ]
 
+export const BACK = [
+    Triangle,
+    Square,
+    Diamond,
+    Pentagon,
+    Hexagon,
+    Eptagon,
+    Semicircle,
+    Circle,
+]
+
 export const BUTTONS ={
     Btn_Play,
     Btn_About,
@@ -72,6 +86,7 @@ export const BUTTONS ={
 }
 
 const IMAGE = {
+    Board,
     BackGround,
     Bee,
     Butterfly,
@@ -84,6 +99,8 @@ const IMAGE = {
     Monkey,
     Ounce,
     Turtle,
+    Efect_One,
+    Efect_Two,
     Start_Rank_OFF,
     Start_Rank_ON,
     Face_Don, 

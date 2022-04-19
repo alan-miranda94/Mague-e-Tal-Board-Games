@@ -4,7 +4,7 @@ import { startPoints } from '../utils/Utils'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { BUTTONS } from '../constants/images'
 import Star from './Star'
-
+import AudioManager from '../constants/AudioManager'
 
 const LevelButton = props => {
   const navigation = useNavigation()
@@ -24,6 +24,7 @@ const LevelButton = props => {
       <TouchableOpacity
         key={props.key}
         style={styles.button}
+        onPressIn = {async ()=> await AudioManager.playAsync(AudioManager.sounds.effects.start)} 
         onPress={() => onClickButton(props.level)}
       >
         <ImageBackground

@@ -2,14 +2,15 @@ import React, {useContext,useState, useEffect} from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import {LEVELS} from '../../utils/Contants'
 import LevelButton from '../../components/LevelButton'
-import { GameContext } from '../../contexts';
+import { GameContext } from '../../contexts'
+import AudioManager from '../../constants/AudioManager'
 
 const App = () => {
   const {state:{memoryGame}, dispatch} = useContext(GameContext)
   const [level,setLevel] = useState([])
 
   useEffect(()=>{
-  
+    console.log("TELA DE LEVEL")
     setLevel(memoryGame.level)
   },[])
   
@@ -22,7 +23,10 @@ const App = () => {
         numColumns= {5}
         columnWrapperStyle={{alignItems:"center", justifyContent:'center'}}
         renderItem={ ({ item, index }) => (
-          <LevelButton  level={item.level} star = {item.star}/>
+          <LevelButton  
+            level={item.level} 
+            star = {item.star}
+          />
          
         )}
         keyExtractor={item => item.level}

@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Dimensions, ImageBackground, Image } from 'reac
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 //import { COLORS } from '../utils/StyleConstants';
 import { shuffle } from '../../utils/Utils';
-
 import { GameContext } from '../../contexts'
 import Card from '../../components/Card'
 import IMAGE, {DECK} from '../../constants/images'
@@ -11,7 +10,8 @@ import {LEVELS} from '../../utils/Contants'
 import Button from '../../components/Button';
 import Pausado from './Pausado'
 import GameEnd from './GameEnd'
-//import { useNavigation } from '@react-navigation/core';
+//import { useNavigation } from '@react-navigation/core'
+import AudioManager from '../../constants/AudioManager'
 
 
 const Height = Dimensions.get('window').height
@@ -20,17 +20,30 @@ const Width = Dimensions.get('window').width
 
 function GameScreen({ route }) {
   const {state:{memoryGame}, dispatch} = useContext(GameContext)
-  const { level } = route.params;
+  const { level } = route.params
   const [showModal, setShowModal] = useState(false)
   const [showWin, setShowWin] = useState(false)
-  const coupleCardsNumber = memoryGame.level[level-1].quantity;
-  const [cardRow, setCardRow] = useState([]);
-  const [selecteds, setSelecteds] = useState([]);
-  const [combinedCards, setCombinedCards] = useState([]);
+  const coupleCardsNumber = memoryGame.level[level-1].quantity
+  const [cardRow, setCardRow] = useState([])
+  const [selecteds, setSelecteds] = useState([])
+  const [combinedCards, setCombinedCards] = useState([])
   const [par, setPar] = useState([])
-  const [initTime, setInitTime] = useState(undefined);
+  const [initTime, setInitTime] = useState(undefined)
 
  // const navigation = useNavigation();
+  //sounds 
+  useEffect(()=>{
+    //bgMusic()
+
+  },[])
+  
+ const hitSound = async () => await AudioManager.playAsync(AudioManager.sounds.effects.hit)
+ const winSound = async () => {
+  // await AudioManager.pauseAsync(AudioManager.sounds.gameplayMemory)
+   await AudioManager.playAsync(AudioManager.sounds.effects.win)
+  }
+ const ErrorSound = async () =>   await AudioManager.playAsync(AudioManager.sounds.effects.error)
+ const bgMusic = async () => await AudioManager.playAsync(AudioManager.sounds.gameplayMemory)
 
  //pega a quantidade de cartas e embaralha elas
   useEffect(() => {
@@ -109,6 +122,7 @@ function GameScreen({ route }) {
           setCombinedCards([...combinedCards, selecteds[0].type])
           removeCards(selecteds[0])
         }else{
+          ErrorSound()
           remove_points(20)
         }
         
@@ -128,16 +142,23 @@ function GameScreen({ route }) {
           level:level
         }
       })
+      dispatch({
+        type:'SAVE',
+      })
       setShowWin(true)
+      winSound()
+      
     }
   },[combinedCards])
 
-  function removeCards(card){
+  function  removeCards (card){
     const newCardRow = cardRow.map((cards, index)=>{
       return cards.map((c)=> {
        if((card.type === c.type)){
+         hitSound()
           return {...c, visible:false}
        }
+      
        return c
       })
     })
@@ -183,12 +204,14 @@ function GameScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      {/* <ImageBackground 
+      { 
+      <ImageBackground 
         style={styles.background}
-        imageStyle={{opacity:0.4}}
-        source={IMAGE.BackGround}
+        //imageStyle={{opacity:0.4}}
+        source={IMAGE.Board}
         resizeMode="stretch"
-      /> */}
+      /> 
+      }
         
         <View style={styles.cardsContainer}>
           {/*LISTA QUE COMTEM AS LINHAS DE CARTAS*/}          
@@ -206,12 +229,16 @@ function GameScreen({ route }) {
                     //backgroundColor:'pink'
                   }}
                   key={`card_${index}`}
+                  onPressIn={async ()=>{
+                    await AudioManager.playAsync(AudioManager.sounds.effects.flip)
+                  }}
                   onPress={() => onPressCard(card)}
                 >
                   <Card
                     friction={6}
                     fist={card.fist}
                     img={card.type}
+                    cover ={memoryGame.level[level-1].cover}
                     perspective={1000}
                     flipHorizontal={true}
                     flipVertical={false}
@@ -230,24 +257,27 @@ function GameScreen({ route }) {
           ))}
         </View>
         <View style={styles.pares}>
-        <FlatList
-          data={par}
-          horizontal={true}
-          keyExtractor={(k)=>k.id}
-          renderItem={({ item, index }) => (
-            <View style={[styles.cardImage,{marginLeft:index===0?2:-40}]}>
-              <Image
-                style={{flex:1}}
-                source={DECK[item.type]}
-                resizeMode="contain"
-              />
-            </View>
-          )}
-        />
-    </View>
-   
-            
-      <Button style={styles.pauseBt} onPress={()=> setShowModal(true)} type='Btn_Pause'/>
+          <FlatList
+            data={par}
+            horizontal={true}
+            keyExtractor={(k)=>k.id}
+            renderItem={({ item, index }) => (
+              <View style={[styles.cardImage,{marginLeft:index===0?2:-40}]}>
+                <Image
+                  style={{flex:1}}
+                  source={DECK[item.type]}
+                  resizeMode="contain"
+                />
+              </View>
+            )}
+          />
+        </View>            
+      <Button 
+        style={styles.pauseBt} 
+        onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
+        onPress={()=> setShowModal(true)} 
+        type='Btn_Pause'
+      />
       <Pausado
        level={level}
        show={showModal}
@@ -268,25 +298,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems:'center',
-    paddingBottom:8
+    paddingBottom:8,
+    height:'80%',
   },
   cardsContainer: {
     flex:1,
-    margin:16,
+   // margin:16,
+    height:'80%',
     marginBottom:0,
     width: '85%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#8C2300',
-    borderWidth:4,
-    
-    
+    //backgroundColor:'#8C2300',
+    //borderWidth:4, 
   },
 
   cardRow: {
     flexDirection: 'row',
     marginBottom:8,
-    
   },
 
   pauseBt:{
@@ -315,10 +344,11 @@ const styles = StyleSheet.create({
 
   background:{
     position: 'absolute', 
-    left: 0, 
-    top: 0, 
-    height: Height, 
-    width: Width,
+    left: 15, 
+    top: 10, 
+    height: Height - 20, 
+    width: Width - 30,
+    justifyContent:'center',
     //backgroundColor: COLORS.secondary,
     alignItems: 'center',
   },
@@ -328,10 +358,11 @@ const styles = StyleSheet.create({
     width: '85%',
     justifyContent:"center",
     alignItems:"center",
-    backgroundColor:'#8C2300',
-    borderWidth:4,
-    borderTopWidth:0,
-    padding:4
+    //backgroundColor:'#8C2300',
+    //borderWidth:4,
+    padding:8,
+    borderTopWidth:2,
+    top: -30
   },
   cardImage: {    
     //height: "100%",

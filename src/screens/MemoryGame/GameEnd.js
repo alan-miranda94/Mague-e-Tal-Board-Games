@@ -8,19 +8,61 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ImageBackground
+  ImageBackground,
+  Animated,
 }
   from 'react-native'
 import Button from '../../components/Button'
 import Star from '../../components/Star'
 import IMAGE, { DECK } from '../../constants/images'
 import { GameContext } from '../../contexts'
+import AudioManager from '../../constants/AudioManager'
 
 export default props => {
-  const {state:{memoryGame}, dispatch} = useContext(GameContext)
+  const { state: { memoryGame }, dispatch } = useContext(GameContext)
   const navigation = useNavigation()
+  
+  const [spinValueOne] = useState(new Animated.Value(0))
+  const spinOne = spinValueOne.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg']
+  })
+
+  const [spinValueTwo] = useState(new Animated.Value(0))
+  const spinTwo = spinValueOne.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['360deg', '30deg']
+  })
+
+  
+
+  setTimeout(() => {
+    Animated.timing(
+      spinValueOne,
+      {
+        toValue: 1,
+        duration: 8 * 1000,
+        useNativeDriver: true,
+      }
+    ).start()
+    Animated.timing(
+      spinValueTwo,
+      {
+        toValue: 1,
+        duration: 8 * 1000,
+        useNativeDriver: true,
+      }
+    ).start()
+  }, 2 * 1000)
+
+
   const handleCloseButton = () => {
     props.setShow(false)
+  }
+  const nextLevel = () => {
+    if (props.level <= 9) {
+      navigation.reset({ index: 0, routes: [{ name: 'MemoryGame', params: { level: props.level + 1 } }] })
+    }
   }
 
   return (
@@ -30,33 +72,50 @@ export default props => {
       animationType='fade'
       statusBarTranslucent
     >
-      <TouchableOpacity onPress={() => {}} style={styles.container}>
+      <TouchableOpacity onPress={() => { }} style={styles.container}>
         <View style={styles.background} >
           <View style={styles.borderInside} >
-            <View style={{ height: 200, width: 200, alignItems: 'center', justifyContent: 'center',}}>
-            <Star full = {props.star[0]} style={{zIndex:10, position:'absolute', top:30, left:0}} size={60}/>
-            <Star full = {props.star[1]} style={{zIndex:10, position:'absolute', alignItems:"center", justifyContent:"center", top:0}} size={60}/>
-            <Star full = {props.star[2]} style={{zIndex:10, position:'absolute', top:30, right:0}} size={60}/>
+            <View style={{ height: 200, width: 200, alignItems: 'center', justifyContent: 'center', }}>
+              <Star full={props.star[0]} style={{ zIndex: 10, position: 'absolute', top: 30, left: 0 }} size={60} />
+              <Star full={props.star[1]} style={{ zIndex: 10, position: 'absolute', alignItems: "center", justifyContent: "center", top: 0 }} size={60} />
+              <Star full={props.star[2]} style={{ zIndex: 10, position: 'absolute', top: 30, right: 0 }} size={60} />
               <Image
-                style={{position:"absolute", height: 200, width: 200,  }}
+                style={{ position: "absolute", height: 200, width: 200, }}
                 source={IMAGE.Popup_Otto}
                 resizeMode="cover"
               />
-              <View  style={{position:"absolute",alignItems:"center", justifyContent:"center",bottom:30}}>
-              <Image
-                style={{ height: 100, width: 100,}}
-                source={IMAGE.Face_Otto}
-                resizeMode="stretch"
-              />
+              <View style={{ position: "absolute", alignItems: "center", justifyContent: "center", bottom: 30 }}>
+                <Image
+                  style={[{ height: 100, width: 100, },]}
+                  source={IMAGE.Face_Otto}
+                  resizeMode="stretch"
+                />
+                
+                <Animated.Image
+                  style={[{ zIndex: -9,  position: "absolute", aspectRatio: 1 / 1, width: 600, }, { transform: [{ rotate: spinOne }] }]}
+                  source={IMAGE.Efect_Two}
+                  resizeMode="cover"
+                />
+                <Animated.Image
+                  style={[{ zIndex: -9,  position: "absolute", aspectRatio: 1 / 1, width: 600, }, { transform: [{ rotate: spinTwo }] }]}
+                  source={IMAGE.Efect_Two}
+                  resizeMode="cover"
+                />
               </View>
-              
 
             </View>
-           
+
             <View style={styles.areaButton}>
-              <Button style={styles.button} type='Btn_Menu' onPress={()=>navigation.reset({index:0, routes:[{name:'Level'}]})}/>
-              <Button style={styles.button} type='Btn_Play' onPress={()=>navigation.reset({index:0, routes:[{name:'MemoryGame', params:{level:props.level + 1}}]})}/>
-              <Button style={styles.button} type='Btn_Restart'  onPress={()=>navigation.reset({index:0, routes:[{name:'MemoryGame', params:{level:props.level }}]})} />
+              <Button style={styles.button} type='Btn_Menu' onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Level' }] })} />
+              {props.level <= 9 &&
+                <Button 
+                  style={styles.button} 
+                  type='Btn_Play' 
+                  onPressIn = {async ()=> await AudioManager.playAsync(AudioManager.sounds.effects.next)} 
+                  onPress={nextLevel} 
+                />
+              }
+              <Button style={styles.button} type='Btn_Restart' onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MemoryGame', params: { level: props.level } }] })} />
             </View>
           </View>
         </View>

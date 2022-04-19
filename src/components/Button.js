@@ -20,6 +20,7 @@ const LevelButton = props => {
       key={props.key}
       style={props.style}
       onPress={props.onPress}
+      onPressIn = {props.onPressIn}
     >
       <Image
         style={{ flex: 1 }}
@@ -34,8 +35,9 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    //width: 100,
-    height: 80,
+    width: '100%',
+    //height: 80,
+    aspectRatio:1/1
     //margin: 10,
   },
   level: {
