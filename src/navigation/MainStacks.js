@@ -12,10 +12,11 @@ export default () => (
         screenOptions={{
             headerShown: false
         }}
-    >
-        <Stack.Screen name='Level' component={Level} />
-        <Stack.Screen name='MemoryGame' component={MemoryGame} />
+    >   
         <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='MG-Level' component={Level} />
+        <Stack.Screen name='MemoryGame' component={MemoryGame} />
+        
 
         
 

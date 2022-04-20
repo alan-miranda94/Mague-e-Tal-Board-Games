@@ -7,16 +7,14 @@ import { GameContext } from '../../contexts'
 import Card from '../../components/Card'
 import IMAGE, {DECK} from '../../constants/images'
 import {LEVELS} from '../../utils/Contants'
-import Button from '../../components/Button';
+import Button from '../../components/Button'
 import Pausado from './Pausado'
 import GameEnd from './GameEnd'
 //import { useNavigation } from '@react-navigation/core'
 import AudioManager from '../../constants/AudioManager'
 
-
 const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
-
 
 function GameScreen({ route }) {
   const {state:{memoryGame}, dispatch} = useContext(GameContext)
@@ -29,21 +27,24 @@ function GameScreen({ route }) {
   const [combinedCards, setCombinedCards] = useState([])
   const [par, setPar] = useState([])
   const [initTime, setInitTime] = useState(undefined)
-
+ 
  // const navigation = useNavigation();
   //sounds 
   useEffect(()=>{
-    //bgMusic()
-
-  },[])
+    if(showModal || showWin){
+      pauseMusic()
+      return
+    }
+    bgMusic()
+    
+  },[showModal, showWin])
   
  const hitSound = async () => await AudioManager.playAsync(AudioManager.sounds.effects.hit)
- const winSound = async () => {
-  // await AudioManager.pauseAsync(AudioManager.sounds.gameplayMemory)
-   await AudioManager.playAsync(AudioManager.sounds.effects.win)
-  }
+ const winSound = async () =>  await AudioManager.playAsync(AudioManager.sounds.effects.win)
  const ErrorSound = async () =>   await AudioManager.playAsync(AudioManager.sounds.effects.error)
- const bgMusic = async () => await AudioManager.playAsync(AudioManager.sounds.gameplayMemory)
+ const bgMusic = async () => await AudioManager.playAsync(AudioManager.sounds.gameplayMemory, true)
+ const stopBgSong = async () => await AudioManager.stopAsync('gameplayMemory')
+ const pauseMusic = async () => await AudioManager.pauseAsync(AudioManager.sounds.gameplayMemory)
 
  //pega a quantidade de cartas e embaralha elas
   useEffect(() => {
@@ -136,6 +137,7 @@ function GameScreen({ route }) {
   /// verifica se finalizou o jogo e atribui as estrelas
   useEffect(()=>{
     if(combinedCards.length == coupleCardsNumber){
+      
       dispatch({
         type:'SET_STARS',
         payload:{          
@@ -275,7 +277,10 @@ function GameScreen({ route }) {
       <Button 
         style={styles.pauseBt} 
         onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
-        onPress={()=> setShowModal(true)} 
+        onPress={()=>{ 
+          //stopBgSong()
+          //pauseMusic()
+          setShowModal(true)}} 
         type='Btn_Pause'
       />
       <Pausado

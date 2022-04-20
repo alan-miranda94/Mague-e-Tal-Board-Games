@@ -12,9 +12,6 @@ const LevelButton = props => {
     //navigation.navigate('MemoryGame', { level });
   }
 
-  useEffect(() => {
-    console.log(props.level)
-  })
   return (
     <TouchableOpacity
       key={props.key}

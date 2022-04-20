@@ -25,18 +25,14 @@ export default function App() {
         await Updates.reloadAsync()
       }
     }
-    const LoadFonts = async () => {
-      await useFonts()
-    }
-
     updateApp()
-    LoadFonts()
+   
 
   },[])
 
 
-
   useLoadFonts()
+  
 
   return (
     <GameContextProvider>

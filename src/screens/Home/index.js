@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { GameContext } from '../../contexts'
 import { NavigationHelpersContext, useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import AudioManager from '../../constants/AudioManager'
 
 export default function App() {
   const {state:{memoryGame}, dispatch} = useContext(GameContext)
@@ -30,10 +31,26 @@ export default function App() {
     
 
   },[])
+
+  useEffect(()=>{
+    bgMusic()
+  },[])
+
+  const selectGame = (game)=>{
+    stopBgSong()
+    navigation.navigate(game)
+  }
   
+ const bgMusic = async () => await AudioManager.playAsync(AudioManager.sounds.menus, true)
+ const stopBgSong = async () => await AudioManager.stopAsync(AudioManager.sounds.menus)
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.game} onPress={()=>navigation.navigate('Level')}>
+      <TouchableOpacity 
+        style={styles.game} 
+        onPressIn = {async ()=> await AudioManager.playAsync(AudioManager.sounds.effects.next)}
+        onPress={()=>selectGame('MG-Level')}
+      >
         <Text style={styles.text}>{`JOGO DA MEMORIA`}</Text>
       </TouchableOpacity>
     </View>

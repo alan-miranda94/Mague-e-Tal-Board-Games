@@ -8,54 +8,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ImageBackground,
-  Animated,
-}
-  from 'react-native'
+} from 'react-native'
 import Button from '../../components/Button'
 import Star from '../../components/Star'
 import IMAGE, { DECK } from '../../constants/images'
 import { GameContext } from '../../contexts'
 import AudioManager from '../../constants/AudioManager'
+import Lottie from '../../components/Lottie'
+import LightEffect from '../../assets/Animations/lightEffect.json'
 
 export default props => {
   const { state: { memoryGame }, dispatch } = useContext(GameContext)
   const navigation = useNavigation()
-  
-  const [spinValueOne] = useState(new Animated.Value(0))
-  const spinOne = spinValueOne.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg']
-  })
-
-  const [spinValueTwo] = useState(new Animated.Value(0))
-  const spinTwo = spinValueOne.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['360deg', '30deg']
-  })
-
-  
-
-  setTimeout(() => {
-    Animated.timing(
-      spinValueOne,
-      {
-        toValue: 1,
-        duration: 8 * 1000,
-        useNativeDriver: true,
-      }
-    ).start()
-    Animated.timing(
-      spinValueTwo,
-      {
-        toValue: 1,
-        duration: 8 * 1000,
-        useNativeDriver: true,
-      }
-    ).start()
-  }, 2 * 1000)
-
-
+ 
   const handleCloseButton = () => {
     props.setShow(false)
   }
@@ -90,17 +55,11 @@ export default props => {
                   source={IMAGE.Face_Otto}
                   resizeMode="stretch"
                 />
-                
-                <Animated.Image
-                  style={[{ zIndex: -9,  position: "absolute", aspectRatio: 1 / 1, width: 600, }, { transform: [{ rotate: spinOne }] }]}
-                  source={IMAGE.Efect_Two}
-                  resizeMode="cover"
-                />
-                <Animated.Image
-                  style={[{ zIndex: -9,  position: "absolute", aspectRatio: 1 / 1, width: 600, }, { transform: [{ rotate: spinTwo }] }]}
-                  source={IMAGE.Efect_Two}
-                  resizeMode="cover"
-                />
+
+                <View style={[{ zIndex: -9,  position: "absolute", aspectRatio: 1 / 1, width: 600, }]}>
+                  
+                 <Lottie source={LightEffect}/>
+                </View>
               </View>
 
             </View>

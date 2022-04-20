@@ -13,6 +13,7 @@ import AudioManager from '../../constants/AudioManager'
 
 export default props => {
   const navigation = useNavigation()
+  
   const handleCloseButton = () => {
     props.setShow(false)
   }
@@ -31,7 +32,7 @@ export default props => {
             style={styles.button} 
             type='Btn_Menu' 
             onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
-            onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Level' }] })} 
+            onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MG-Level' }] })} 
           />
           <Button 
             style={styles.button} 

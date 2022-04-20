@@ -12,6 +12,7 @@ const LevelButton = props => {
   const [stars, setStars] = useState(props.star)
 
   function onClickButton(level) {
+    props.stopBgSong()
     navigation.navigate('MemoryGame', { level });
   }
 

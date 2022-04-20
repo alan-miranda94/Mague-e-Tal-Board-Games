@@ -12,7 +12,7 @@ export const useLoadFonts = async ()=> {
 
     let [fontsLoaded] = useFonts({
         RetroGaming: require('../assets/fonts/RetroGaming.ttf'),
-        PressStart2P_400Regular
+        
       })      
       if (!fontsLoaded) {
         console.log('carregou fonts')

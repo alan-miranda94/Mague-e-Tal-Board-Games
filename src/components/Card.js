@@ -13,9 +13,7 @@ import {
 
 export default props => {
     const [flip, setFlip] = useState(false)
-    useEffect(() => {
-        console.log(props.img)
-    }, [])
+  
 
     return (
         <>{props.visible ?
