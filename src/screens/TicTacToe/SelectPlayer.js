@@ -69,9 +69,6 @@ export default function App() {
         setTimeout(()=>{
             setSelecteds(true)
         },100)
-        
-       
-
     }
 
     const restartSelect = () => {
@@ -82,8 +79,6 @@ export default function App() {
         setSelecteds(false)
 
     }
-
-
 
     return (
         <View style={styles.container}>
@@ -96,7 +91,7 @@ export default function App() {
             <View style={{ width: Width * 0.70, alignItems: 'center', justifyContent: "center", opacity: fruitOne && fruitTwo ? 0.3 : 1 }}>
 
                 <FlatList
-                    data={CHARACTERS}
+                    data={tictactoe.characters}
                     horizontal={true}
                     keyExtractor={(item, index) => Math.random()}
                     contentContainerStyle={{ alignItems: 'center', justifyContent: "center" }}
@@ -143,7 +138,7 @@ export default function App() {
                     )}
                 />
                 <FlatList
-                    data={FRUITS}
+                    data={tictactoe.fruits}
                     horizontal={true}
                     keyExtractor={(item) => Math.random()}
                     contentContainerStyle={{ alignItems: 'center', justifyContent: "center" }}

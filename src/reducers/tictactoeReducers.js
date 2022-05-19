@@ -1,11 +1,14 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createBoard, checkRowMatch, checkMatch, copyBoard} from '../utils/Utils'
+import { CHARACTERS, FRUITS } from '../utils/Contants'
 
 export const tictactoeInitialState = {
   board: [],
   players:[],
   fruits:[],
+  characters:CHARACTERS,
+  fruits:FRUITS,
   currentPlayer: 0
 }
 

@@ -16,23 +16,23 @@ export default props => {
                     Animation[props.name]['WAITING_START'][0],
                     Animation[props.name]['WAITING_START'][1]
                 )
-            setTimeout(()=>{
+            setTimeout(() => {
                 lottieRef
-                .current
-                .play(
-                    Animation[props.name]['WAITING_END'][0],
-                    Animation[props.name]['WAITING_END'][1]
-                )
-            },2000)
-            
-        } else {
-            lottieRef
-                .current
-                .play(
-                    Animation[props.name][props.action][0],
-                    Animation[props.name][props.action][1]
-                )
+                    .current
+                    .play(
+                        Animation[props.name]['WAITING_END'][0],
+                        Animation[props.name]['WAITING_END'][1]
+                    )
+            }, 2000)
+            return
         }
+        lottieRef
+            .current
+            .play(
+                Animation[props.name][props.action][0],
+                Animation[props.name][props.action][1]
+            )
+
 
     }, [props.action])
 

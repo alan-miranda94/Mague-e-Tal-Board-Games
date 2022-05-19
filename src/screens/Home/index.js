@@ -19,14 +19,14 @@ export default function App() {
   const navigation = useNavigation()
   const lottieRef = useRef()
   const flatListRef = useRef()
-
+  const characters = ['Dom','Riso','Jo','Otto']
+  const persona = characters[Math.floor(Math.random()*4)]
   const games = [
     {
       id: 1,
       name: 'Jogo da Memoria',
       screen: 'MG-Level',
       cover: BUTTONS.Btn_MemoryGame
-
     },
     {
       id: 2,
@@ -101,8 +101,9 @@ export default function App() {
 
   useEffect(() => {
     //bgMusic()
+    
     setTimeout(() => {
-     // lottieRef.current.play(280, 390)
+      // lottieRef.current.play(280, 390)
       logoAnimation.transitionTo((state) => {
         if (state === 'to') {
           return 'shrink'
@@ -121,10 +122,25 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.background}
+      <MotiImage
+        from={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        style={[styles.background, ]}
         //imageStyle={{opacity:0.4}}
-        source={IMAGE.Bg_Tree}
+        source={IMAGE.Bg_Nigth}
+        resizeMode="stretch"
+        transition={{
+          type: 'timing',
+          duration: 1 * 1000,
+          opacity:{
+            delay:3*1000
+          }
+        }}
+      />
+      <MotiImage
+        style={[styles.background, {zIndex: -3}]}
+        //imageStyle={{opacity:0.4}}
+        source={IMAGE.Bg_Day}
         resizeMode="stretch"
       />
       <MotiImage
@@ -140,24 +156,25 @@ export default function App() {
       />
 
       <MotiView
-        from={{ opacity: 1, translateX: -Width/2 }}
+        from={{ opacity: 1, translateX: -Width / 2 }}
         style={{ marginLeft: 10 }}
-        animate={{ opacity: 1, translateX: 0 ,}}
+        animate={{ opacity: 1, translateX: 0, }}
         transition={{
           type: 'timing',
-          translateX:{
+          translateX: {
             duration: 1000,
-            delay:3* 1000,
+            delay: 3 * 1000,
           },
-          
-          
+
+
         }}
-  
+
       >
         <View style={
           {
             position: 'absolute',
             left: -30,
+            bottom:'4%',
             backgroundColor: 'red',
             width: '20%',
             height: "0%",
@@ -165,11 +182,11 @@ export default function App() {
         >
           <Sprit //Lottie //PERSONAGENS
             action={'IDLE'}
-            name={'Dom'}
+            name={persona}
             resizeMode={'cover'}
             style={[{ height: Height / 2, aspectRatio: 1 }]}
           />
-         
+
         </View>
       </MotiView>
 
@@ -233,7 +250,7 @@ export default function App() {
           }}
         />
       </View>
-           
+
 
     </View>
   );

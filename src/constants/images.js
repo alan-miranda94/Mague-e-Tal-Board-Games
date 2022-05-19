@@ -1,6 +1,8 @@
 //INTERFACE
 import BackGround from '../assets/MemoryGame/bg_minigame1.png'
 import Bg_Tree from '../assets/Interface/other/Bg_arvores.png'
+import Bg_Day from '../assets/Interface/other/BG_1.png'
+import Bg_Nigth from '../assets/Interface/other/BG_2.png'
 import P_Blue from '../assets/Interface/other/Pedestal_azul.png'
 import P_Red from '../assets/Interface/other/Pedestal_vermelho.png'
 
@@ -105,7 +107,7 @@ import UFPE from '../assets/Marcas/UFPE.png'
 import LEG from '../assets/Marcas/LEG.png'
 import MET from '../assets/Marcas/meg.png'
 import PEA from '../assets/Marcas/pea.png'
-import LOGOGAME from '../assets/Marcas/logoGame.png'
+import LOGOGAME from '../assets/Marcas/logo.png'
 
 export const MARCAS = {
     Recife,
@@ -242,7 +244,9 @@ const IMAGE = {
     Block_Blue,
     Bg_Tree,
     P_Red,
-    P_Blue
+    P_Blue,
+    Bg_Day,
+    Bg_Nigth
 }
 
 export default IMAGE;
