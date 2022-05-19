@@ -1,32 +1,36 @@
 //INTERFACE
 import BackGround from '../assets/MemoryGame/bg_minigame1.png'
+import Bg_Tree from '../assets/Interface/other/Bg_arvores.png'
+import P_Blue from '../assets/Interface/other/Pedestal_azul.png'
+import P_Red from '../assets/Interface/other/Pedestal_vermelho.png'
 
 //BUTTOM
-import Btn_Play from '../assets/MemoryGame/Interface/Button/btn_jogar.png'
-import Btn_Menu from '../assets/MemoryGame/Interface/Button/btn_menu.png'
-import Btn_Pause from '../assets/MemoryGame/Interface/Button/btn_pausa.png'
-import Btn_Restart from '../assets/MemoryGame/Interface/Button/btn_reiniciar.png'
-import Btn_About from '../assets/MemoryGame/Interface/Button/btn_sobre.png'
-import Btn_Back from '../assets/MemoryGame/Interface/Button/btn_voltar.png'
-import PauseGame from '../assets/MemoryGame/Interface/popup_pausado.png' 
-import Btn_Level from  '../assets/MemoryGame/Interface/Button/btn_selecao_fases.png'
+import Btn_Play from '../assets/Interface/Button/btn_jogar.png'
+import Btn_Menu from '../assets/Interface/Button/btn_menu.png'
+import Btn_Pause from '../assets/Interface/Button/btn_pausa.png'
+import Btn_Restart from '../assets/Interface/Button/btn_reiniciar.png'
+import Btn_About from '../assets/Interface/Button/btn_sobre.png'
+import Btn_Back from '../assets/Interface/Button/btn_voltar.png'
+import Btn_Level from  '../assets/Interface/Button/btn_selecao_fases.png'
+import Btn_MemoryGame from '../assets/Interface/Button/jm.png'
+import Btn_TicTacToe from '../assets/Interface/Button/jv.png'
 
 //GAME END
-import Start_Rank_ON from '../assets/MemoryGame/Interface/other/estrela_ranque.png'
-import Start_Rank_OFF from '../assets/MemoryGame/Interface/other/estrela_ranque_preta.png' 
-import Face_Don from '../assets/MemoryGame/Interface/other/face_don.png'
-import Face_Jo from '../assets/MemoryGame/Interface/other/face_jo.png'
-import Face_Otto from '../assets/MemoryGame/Interface/other/face_otto.png'
-import Face_Riso from '../assets/MemoryGame/Interface/other/face_riso.png'
-import Popup_Don from '../assets/MemoryGame/Interface/other/popup_ranque_don.png'
-import Popup_Jo from '../assets/MemoryGame/Interface/other/popup_ranque_jo.png'
-import Popup_Otto from '../assets/MemoryGame/Interface/other/popup_ranque_otto.png'
-import Popup_Riso from '../assets/MemoryGame/Interface/other/popup_ranque_riso.png'
-import Efect_One from '../assets/MemoryGame/Interface/other/popup_ranque_efeito1.png'
-import Efect_Two from '../assets/MemoryGame/Interface/other/popup_ranque_efeito2.png'
-import Board from '../assets/MemoryGame/Interface/other/bg_tabuleiro.png'
+import Start_Rank_ON from '../assets/Interface/other/estrela_ranque.png'
+import Start_Rank_OFF from '../assets/Interface/other/estrela_ranque_preta.png' 
+import Face_Don from '../assets/Interface/other/face_don.png'
+import Face_Jo from '../assets/Interface/other/face_jo.png'
+import Face_Otto from '../assets/Interface/other/face_otto.png'
+import Face_Riso from '../assets/Interface/other/face_riso.png'
+import Popup_Don from '../assets/Interface/other/popup_ranque_don.png'
+import Popup_Jo from '../assets/Interface/other/popup_ranque_jo.png'
+import Popup_Otto from '../assets/Interface/other/popup_ranque_otto.png'
+import Popup_Riso from '../assets/Interface/other/popup_ranque_riso.png'
+import Efect_One from '../assets/Interface/other/popup_ranque_efeito1.png'
+import Efect_Two from '../assets/Interface/other/popup_ranque_efeito2.png'
+import Board from '../assets/Interface/other/bg_tabuleiro.png'
 
-//FRONTE OF CARD
+//MEMORY GAME FRONTE OF CARD
 import Bee from '../assets/MemoryGame/Cartas/Abelha.png'
 import Butterfly from '../assets/MemoryGame/Cartas/Borboleta.png'
 import Chameleon from '../assets/MemoryGame/Cartas/Camaleao.png'
@@ -39,7 +43,7 @@ import Monkey from '../assets/MemoryGame/Cartas/Macaco.png'
 import Ounce from '../assets/MemoryGame/Cartas/Onca.png'
 import Turtle from '../assets/MemoryGame/Cartas/Tartaruga.png'
 
-//BACK OF CARD
+//MEMORY GAME  BACK OF CARD
 import Circle from '../assets/MemoryGame/Cartas/verso_circulo.png'
 import Eptagon from '../assets/MemoryGame/Cartas/verso_eptagono.png'
 import Hexagon from '../assets/MemoryGame/Cartas/verso_hexagono.png'
@@ -49,6 +53,68 @@ import Square from '../assets/MemoryGame/Cartas/verso_quadrado.png'
 import Semicircle from '../assets/MemoryGame/Cartas/verso_Semicírculo.png'
 import Triangle from '../assets/MemoryGame/Cartas/verso_triangulo.png'
 
+
+//TICTACTOE FRUIT
+import Acerola from '../assets/TicTacToe/Fruta_1.png'
+import Cashew from '../assets/TicTacToe/Fruta_2.png'
+import Guava from '../assets/TicTacToe/Fruta_3.png'
+import Orange from '../assets/TicTacToe/Fruta_4.png'
+import Pineapple from '../assets/TicTacToe/Fruta_5.png'
+import Mango from '../assets/TicTacToe/Fruta_6.png'
+
+//TICTACTOE FRUIT BUTTON
+import Btn_Acerola from '../assets/TicTacToe/btn_fruta1.png'
+import Btn_Cashew from '../assets/TicTacToe/btn_fruta2.png'
+import Btn_Guava from '../assets/TicTacToe/btn_fruta3.png'
+import Btn_Orange from '../assets/TicTacToe/btn_fruta4.png'
+import Btn_Pineapple from '../assets/TicTacToe/btn_fruta5.png'
+import Btn_Mango from '../assets/TicTacToe/btn_fruta6.png'
+
+//TICTACTOE FRUIT BUTTON
+import Marker_P1 from '../assets/TicTacToe/marcador_p1.png'
+import Marker_P2 from '../assets/TicTacToe/marcador_p2.png'
+
+//TICTACTOE FRUIT BUTTON
+import Btn_Dom from '../assets/TicTacToe/BTN_DOM.png'
+import Btn_Jo from '../assets/TicTacToe/BTN_jo.png'
+import Btn_Otto from '../assets/TicTacToe/BTN_otto.png'
+import Btn_Riso from '../assets/TicTacToe/BTN_riso.png'
+
+//TICTACTOE CHARACTER
+import Dom from '../assets/TicTacToe/dom.png'
+import Jo from '../assets/TicTacToe/jo.png'
+import Otto from '../assets/TicTacToe/otto.png'
+import Riso from '../assets/TicTacToe/riso.png'
+
+//TICTACTOE FRUIT BUTTON
+import Bg_Bar_Blue from '../assets/TicTacToe/bg_barra_azul_grande.png'
+import Bg_Bar_Red from '../assets/TicTacToe/bg_barra_vermelha_grande.png'
+import Bg_Bar_Blue2 from '../assets/TicTacToe/bg_barra_azul.png'
+import Bg_Bar_Red2 from '../assets/TicTacToe/bg_barra_vermelha.png'
+import Bg_Game_End from '../assets/TicTacToe/BG_fim_de_jogo.png'
+import Bg_Game_Tab from '../assets/TicTacToe/BG_jogo_da_velha.png'
+
+//TICTACTOE FRUIT BUTTON
+import Block_White from '../assets/TicTacToe/bloco_branco.png'
+import Block_Blue from '../assets/TicTacToe/bloco_azul.png'
+import Block_Red from '../assets/TicTacToe/bloco_vermelho.png'
+
+//MARCAS 
+import Recife from '../assets/Marcas/recife.png'
+import UFPE from '../assets/Marcas/UFPE.png'
+import LEG from '../assets/Marcas/LEG.png'
+import MET from '../assets/Marcas/meg.png'
+import PEA from '../assets/Marcas/pea.png'
+import LOGOGAME from '../assets/Marcas/logoGame.png'
+
+export const MARCAS = {
+    Recife,
+    UFPE,
+    LEG,
+    MET,
+    PEA,
+    LOGOGAME
+}
 
 export const DECK = [
     Bee,
@@ -82,7 +148,39 @@ export const BUTTONS ={
     Btn_Menu,
     Btn_Pause,
     Btn_Restart,
-    Btn_Level
+    Btn_Level,
+    Btn_MemoryGame,
+    Btn_TicTacToe
+
+}
+
+export const BTN_FRUITS = {
+    Btn_Pineapple,
+    Btn_Acerola,
+    Btn_Cashew,
+    Btn_Guava,
+    Btn_Orange,
+    Btn_Mango
+}
+
+export const TTT_Characters = {
+    Btn_Dom,
+    Btn_Jo,
+    Btn_Otto,
+    Btn_Riso,
+    Dom,
+    Otto,
+    Riso,
+    Jo
+}
+
+export const FRUIT ={
+    Pineapple,
+    Acerola,
+    Cashew,
+    Guava,
+    Orange,
+    Mango
 }
 
 const IMAGE = {
@@ -125,6 +223,26 @@ const IMAGE = {
     Square,
     Semicircle,
     Triangle,
+    Pineapple,
+    Acerola,
+    Cashew,
+    Guava,
+    Orange,
+    Mango,
+    Bg_Game_End,
+    Bg_Bar_Blue,
+    Bg_Bar_Red,
+    Bg_Bar_Blue2,
+    Bg_Bar_Red2,
+    Bg_Game_Tab,
+    Marker_P1,
+    Marker_P2,
+    Block_White,
+    Block_Red,
+    Block_Blue,
+    Bg_Tree,
+    P_Red,
+    P_Blue
 }
 
 export default IMAGE;

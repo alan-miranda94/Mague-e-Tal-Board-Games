@@ -3,11 +3,8 @@ import FlipCard from 'react-native-flip-card'
 import IMAGE, { DECK , BACK} from '../constants/images'
 import {
     StyleSheet,
-    Text,
     View,
     Image,
-    TouchableWithoutFeedback,
-    TouchableOpacity
 } from 'react-native';
 
 

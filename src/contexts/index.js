@@ -1,11 +1,14 @@
 import React,{createContext, useReducer} from 'react'
 import {memoryGameInitialState, MemoryGameReducer} from '../reducers/memoryGameReducers'
+import { tictactoeInitialState, TictactoeReducer } from '../reducers/tictactoeReducers'
 import combineReducers from 'react-combine-reducers'
+
 
 export const GameContext = createContext()
 
 const  [gameReducer, initialGame] = combineReducers({
-  memoryGame:[MemoryGameReducer, memoryGameInitialState]
+  memoryGame:[MemoryGameReducer, memoryGameInitialState],
+  tictactoe:[TictactoeReducer, tictactoeInitialState]
 })
 
 export default ({children}) => {

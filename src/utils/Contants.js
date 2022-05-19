@@ -1,4 +1,8 @@
 
+import IMAGE,{BTN_FRUITS, FRUIT, TTT_Characters} from "../constants/images"
+import ANIMATIONS from '../constants/Animation'
+
+
 export const LEVELS = [
   {
     level: 1,
@@ -114,5 +118,69 @@ export const LEVELS = [
     starTwo: 380,
     starThree: 500,
     cover:7
+  },
+]
+
+export const CHARACTERS = [
+  {
+    name:'Dom',
+    card:TTT_Characters.Btn_Dom,
+    player: null,
+    selected:false
+    //character: ANIMATIONS.Dom
+  },
+  {
+    name:'Otto',
+    card:TTT_Characters.Btn_Otto,
+    player: null,
+    selected:false
+    //character: ANIMATIONS.Otto
+  },
+  {
+    name:'Jo',
+    card:TTT_Characters.Btn_Jo,
+    player: null,
+    selected:false
+    //character: ANIMATIONS.Jo
+  },
+  {
+    name:'Riso',
+    card:TTT_Characters.Btn_Riso,
+    player: null,
+    selected:false
+    //character: ANIMATIONS.Riso
+  }
+]
+
+export const FRUITS = [
+  {
+    name:'PINEAPPLE',
+    card:BTN_FRUITS.Btn_Pineapple,
+    fruit:FRUIT.Pineapple,
+  },
+  {
+    name:'ACEROLA',
+    card:BTN_FRUITS.Btn_Acerola,
+    fruit:FRUIT.Acerola
+  },
+  {
+    name:'CASHEW',
+    card:BTN_FRUITS.Btn_Cashew,
+    fruit:FRUIT.Cashew
+  },
+  {
+    name:'GUAVA',
+    card:BTN_FRUITS.Btn_Guava,
+    fruit:FRUIT.Guava
+  },
+  {
+    name:'ORANGE',
+    card:BTN_FRUITS.Btn_Orange,
+    fruit:FRUIT.Orange
+  },
+  {
+    name:'MANGO',
+    card:BTN_FRUITS.Btn_Mango,
+    fruit:FRUIT.Mango
   },
 ]

@@ -65,7 +65,7 @@ export default props => {
             </View>
 
             <View style={styles.areaButton}>
-              <Button style={styles.button} type='Btn_Menu' onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Level' }] })} />
+              <Button style={styles.button} type='Btn_Menu' onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MG-Level' }] })} />
               {props.level <= 9 &&
                 <Button 
                   style={styles.button} 

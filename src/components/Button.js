@@ -20,9 +20,9 @@ const LevelButton = props => {
       onPressIn = {props.onPressIn}
     >
       <Image
-        style={{ flex: 1 }}
+        style={props.imageStyle?props.imageStyle:{ flex: 1}}
         source={BUTTONS[props.type]}
-        resizeMode="stretch"
+        resizeMode={props.mode?props.mode:"stretch"}
       />
     </TouchableOpacity>
   );
