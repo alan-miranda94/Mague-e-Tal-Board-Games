@@ -12,6 +12,7 @@ import Pausado from './Pausado'
 import GameEnd from './GameEnd'
 //import { useNavigation } from '@react-navigation/core'
 import AudioManager from '../../constants/AudioManager'
+import { MotiView, useAnimationState, MotiImage, AnimatePresence } from 'moti'
 
 const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
@@ -206,9 +207,15 @@ function GameScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      { 
       <ImageBackground 
         style={styles.background}
+        //imageStyle={{opacity:0.4}}
+        source={IMAGE.Bg_Day}
+        resizeMode="stretch"
+      /> 
+      { 
+      <ImageBackground 
+        style={styles.backgroundBoard}
         //imageStyle={{opacity:0.4}}
         source={IMAGE.Board}
         resizeMode="stretch"
@@ -224,10 +231,11 @@ function GameScreen({ route }) {
                 <TouchableWithoutFeedback
                 //style={[styles.cardContainer, ]}
                   style={{ 
-                    height: 110,
-                    width: 70, 
-                    minHeight:110,
+                    height: Height/5.5 ,
+                    
+                    //minHeight:Height/10,
                     marginLeft:8, 
+                    aspectRatio: 1 
                     //backgroundColor:'pink'
                   }}
                   key={`card_${index}`}
@@ -258,7 +266,14 @@ function GameScreen({ route }) {
             
           ))}
         </View>
-        <View style={styles.pares}>
+        <AnimatePresence>
+        {par.length > 0 &&
+        (
+        <MotiView 
+          delay={200}
+          from={{opacity:0}}
+          animate={{opacity:1}}
+          style={styles.pares}>
           <FlatList
             data={par}
             horizontal={true}
@@ -273,7 +288,9 @@ function GameScreen({ route }) {
               </View>
             )}
           />
-        </View>            
+        </MotiView> 
+        )}  
+        </AnimatePresence>        
       <Button 
         style={styles.pauseBt} 
         onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
@@ -303,19 +320,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems:'center',
-    paddingBottom:8,
-    height:'80%',
+    //paddingBottom:8,
+   // height:'80%',
   },
   cardsContainer: {
     flex:1,
-   // margin:16,
     height:'80%',
     marginBottom:0,
     width: '85%',
     alignItems: 'center',
-    justifyContent: 'center',
-    //backgroundColor:'#8C2300',
-    //borderWidth:4, 
+    justifyContent: 'center',  
   },
 
   cardRow: {
@@ -328,7 +342,7 @@ const styles = StyleSheet.create({
     right: '2%', 
     top: "2%", 
     height:'15%',
-
+    aspectRatio: 1 / 1
   },
 
   cardContainer: {
@@ -347,12 +361,21 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 
-  background:{
+  backgroundBoard:{
     position: 'absolute', 
     left: 15, 
     top: 10, 
     height: Height - 20, 
     width: Width - 30,
+    justifyContent:'center',
+    //backgroundColor: COLORS.secondary,
+    alignItems: 'center',
+  },
+  background:{
+    position: 'absolute', 
+    
+    height: Height, 
+    width: Width,
     justifyContent:'center',
     //backgroundColor: COLORS.secondary,
     alignItems: 'center',

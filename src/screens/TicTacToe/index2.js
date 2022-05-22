@@ -16,10 +16,13 @@ import ShakeTwo from '../../assets/Animations/shakeTwo.json'
 import { MotiView, useAnimationState, MotiImage, AnimatePresence } from 'moti'
 import Button from '../../components/Button'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import { createBoard, checkRowMatch, checkMatch, copyBoard } from '../../utils/Utils'
+import ButtonFruit from '../../components/ButtonFruit'
+
+import { createBoard, checkRowMatch, checkMatch, copyBoard} from '../../utils/Utils'
 
 const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
+
 //import { checkColumnMatch } from '../../utils/Utils'
 
 export default function App() {
@@ -30,6 +33,7 @@ export default function App() {
     const [currentPlayer, setCurrentPlayer] = useState(true)
     const [players, setPlayers] = useState([])
     const [fruits, setFruits] = useState([])
+    const [actualPlayer, setActualPlayer] = useState(0)
 
     const resetGame = async () => {
         dispatch({
@@ -42,58 +46,48 @@ export default function App() {
             }
         })
 
-
     }
 
     useEffect(() => {
 
         setPlayers(tictactoe.players)
         setFruits(tictactoe.fruits)
-        setBoard(tictactoe.board)
+
     }, [])
 
 
     useEffect(() => {
-
-
-    }, [tictactoe])
-
-    useEffect(() => {
-        //setBoard(tictactoe.board)
+        setBoard(tictactoe.board)
     }, [board])
 
 
 
     const play = (row, column) => {
-        dispatch({
-            type: 'PLAY',
-            payload: {
-                row: row,
-                column: column,
-            }
-        })
+        let newBoard =[...board]
+        newBoard[row][column] = actualPlayer
+        console.log(newBoard)
+        setBoard(newBoard)
+        if(actualPlayer === 0) setActualPlayer(1)
+        if(actualPlayer === 1) setActualPlayer(0)
+
+        // dispatch({
+        //     type: 'PLAY',
+        //     payload: {
+        //         row: row,
+        //         column: column,
+        //     }
+        // })
         setCurrentPlayer(!currentPlayer)
-
-        setTimeout(() => {
-            dispatch({
-                type: 'MATCH',
-                payload: {
-                    row: row,
-                    column: column,
-                }
-            })
-        }, 1000)
-
-
+        // dispatch({
+        //     type: 'MATCH',
+        //     payload: {
+        //         row: row,
+        //         column: column,
+        //     }
+        // })
 
     }
-    const match = (row, column) => {
-
-
-
-
-    }
-
+ 
 
     return (
         <View style={styles.container}>
@@ -132,83 +126,45 @@ export default function App() {
                     />
                 </View>
             </MotiView>
-            {tictactoe.board && tictactoe.board.map((row, numberRow) => {
-                return (
-                    <View style={styles.rowBoard}>
-                        {
-                            row.map((column, numberColumn) => {
-                                return (
-                                    <TouchableWithoutFeedback key={Math.random()}
-                                        onPress={column ? null : () => play(numberRow, numberColumn)}
-                                    >
+{board&&<>
+            <View style={styles.rowBoard}>
+                <ButtonFruit onPress={()=>play(0,0)} fruits={tictactoe.fruits} player={board[0][0]} />
+                <ButtonFruit onPress={()=>play(0,1)} fruits={tictactoe.fruits} player={board[0][1]} />
+                <ButtonFruit onPress={()=>play(0,2)} fruits={tictactoe.fruits} player={board[0][2]} />
+                <ButtonFruit onPress={()=>play(0,3)} fruits={tictactoe.fruits} player={board[0][3]} />
+                <ButtonFruit player={tictactoe.board[0][4]} />
+            </View>
+            <View style={styles.rowBoard}>
+                <ButtonFruit player={tictactoe.board[1][0]} />
+                <ButtonFruit player={tictactoe.board[1][1]} />
+                <ButtonFruit player={tictactoe.board[1][2]} />
+                <ButtonFruit player={tictactoe.board[1][3]} />
+                <ButtonFruit player={tictactoe.board[1][4]} />
+            </View>
+            <View style={styles.rowBoard}>
+                <ButtonFruit player={tictactoe.board[2][0]} />
+                <ButtonFruit player={tictactoe.board[2][1]} />
+                <ButtonFruit player={tictactoe.board[2][2]} />
+                <ButtonFruit player={tictactoe.board[2][3]} />
+                <ButtonFruit player={tictactoe.board[2][4]} />
+            </View>
+            <View style={styles.rowBoard}>
+                <ButtonFruit player={tictactoe.board[3][0]} />
+                <ButtonFruit player={tictactoe.board[3][1]} />
+                <ButtonFruit player={tictactoe.board[3][2]} />
+                <ButtonFruit player={tictactoe.board[3][3]} />
+                <ButtonFruit player={tictactoe.board[3][4]} />
+            </View>
+            <View style={styles.rowBoard}>
+                <ButtonFruit player={tictactoe.board[4][0]} />
+                <ButtonFruit player={tictactoe.board[4][1]} />
+                <ButtonFruit player={tictactoe.board[4][2]} />
+                <ButtonFruit player={tictactoe.board[4][3]} />
+                <ButtonFruit player={tictactoe.board[4][4]} />
+            </View>
+            </>
 
-
-                                        <View
-                                            activeOpacity={0}
-                                            key={Math.random()}
-                                            style={[styles.boxPlay, { alignItems: 'center', justifyContent: 'center' }]}
-                                        >
-                                            <AnimatePresence >
-                                                {
-                                                    (<MotiImage
-                                                        from={{ opacity: 1 }}
-                                                        animate={{ opacity: 1 }}
-                                                        delay={200}
-                                                        exit={{
-                                                            opacity: 0,
-                                                        }}
-                                                        key={'null'}
-                                                        style={{ position: 'absolute', width: '100%', height: '100%' }}
-                                                        source={IMAGE.Block_White}
-                                                    />)
-                                                }
-
-                                                {column === 0 &&
-                                                    (<MotiImage
-                                                        key={'one'}
-                                                        style={{ width: '100%', height: '100%' }}
-                                                        source={IMAGE.Block_Blue}
-                                                    />)
-                                                }
-                                                {column === 1 &&
-                                                    (<MotiImage
-                                                        key={'two'}
-                                                        style={{ width: '100%', height: '100%' }}
-                                                        source={IMAGE.Block_Red}
-                                                    />)
-                                                }
-                                                {column !== null &&
-                                                    (<MotiImage
-                                                        // from={{
-                                                        //     opacity: 0,
-                                                        //     //scale: 0.3
-                                                        // }}
-                                                        // animate={{
-                                                        //     //scale: 1,
-                                                        //     opacity: 1,
-                                                        // }}
-                                                        // exit={{
-                                                        //     scale: 0.3,
-                                                        //     opacity: 0,
-                                                        // }}
-
-                                                        key={'fruit'}
-                                                        style={{ position: 'absolute', width: '80%', height: '80%' }}
-                                                        source={fruits[column]}
-                                                        resizeMode="cover"
-                                                    />)
-                                                }
-                                            </AnimatePresence>
-
-                                        </View>
-                                    </TouchableWithoutFeedback>)
-                            })
-                        }
-                    </View>
-                )
-            })
-
-            }
+}
 
 
             <MotiView
@@ -268,49 +224,29 @@ export default function App() {
                         }}
                         style={{ zIndex: 5, position: 'absolute', }}
                     >
-                        <View style={{ flexDirection: 'row', }}>
-                            <Lottie
-                               // resizeMode={'contain'}
-                                //autoSize
-                                autoPlay
-                                loop
-                                source={LightEffect}
-                                style={[{zIndex:-9, position: 'absolute', top:- Height*0.1, left:- Height*0.15, height: Height, }]}
-                            />
-                            <Sprit //Lottie //PERSONAGENS
-                                action={'CELEBRATION'}
-                                name={tictactoe.progressOne >= 1 ? tictactoe.players[0] : tictactoe.players[1]}
-                                resizeMode={'cover'}
-                                style={[{ height: Height / 2, aspectRatio: 1, }]}
-                            />
-                            <MotiImage
-                                style={{ zIndex: 5, position: 'absolute', right: '0%', top: '10%' }}
-                                from={{ translateY: 0, rotateZ: '0deg' }}
-                                animate={{ translateY: 5, rotateZ: '15deg' }}
-                                transition={{
-                                    rotateZ: {
-                                        loop: true,
-                                    },
-                                    translateY: {
-                                        //type:'timing',
-                                        loop: true,
-                                        duration: 200,
-                                        delay: 200,
-                                    }
-                                }}
-                                source={tictactoe.progressOne >= 1 ? fruits[0] : fruits[1]}
-                            />
-
-                            <Lottie
-                                source={tictactoe.progressOne >= 1 ? ShakeOne : ShakeTwo}
-                                loop={false}
-                                //autoPlay
-                                progress={1}
-                                resizeMode={'cover'}
-                                style={[{ position: 'absolute', right: '-10%', height: Height / 4, }]}
-                            />
-                        </View>
-
+                        <Sprit //Lottie //PERSONAGENS
+                            action={'CELEBRATION'}
+                            name={tictactoe.progressOne >= 1 ? tictactoe.players[0] : tictactoe.players[1]}
+                            resizeMode={'cover'}
+                            style={[{ height: Height / 2, aspectRatio: 1, }]}
+                        />
+                        <MotiImage
+                            style={{ zIndex: 5, position: 'absolute', right: '0%', top: '10%' }}
+                            from={{ translateY: 0, rotateZ: '0deg' }}
+                            animate={{ translateY: 5, rotateZ: '15deg' }}
+                            transition={{
+                                rotateZ: {
+                                    loop: true,
+                                },
+                                translateY: {
+                                    //type:'timing',
+                                    loop: true,
+                                    duration: 200,
+                                    delay: 200,
+                                }
+                            }}
+                            source={tictactoe.progressOne >= 1 ? fruits[0] : fruits[1]}
+                        />
                         <Image
                             style={
                                 {
@@ -327,13 +263,12 @@ export default function App() {
 
                     <View style={{ flexDirection: 'row', position: 'absolute', bottom: Height * 0.05, justifyContent: 'space-between', }}>
                         <Button
-                            style={{ height: Height * 0.1, aspectRatio: 1 / 1, }}
+                            style={{ marginRight: 10 }}
                             // onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
                             onPress={resetGame}
                             type='Btn_Restart'
                         />
                         <Button
-                            style={{ height: Height * 0.1, aspectRatio: 1 / 1, }}
                             onPressIn={async () => await AudioManager.playAsync(AudioManager.sounds.effects.back)}
                             onPress={() => navigation.navigate('Home')}
                             type='Btn_Menu'

@@ -7,7 +7,7 @@ import MemoryGame from '../screens/MemoryGame'
 import Level from '../screens/MemoryGame/Level'
 import TicTacToe from '../screens/TicTacToe'
 import SelectPlayer from '../screens/TicTacToe/SelectPlayer'
-
+import About from '../screens/About'
 const Stack = createStackNavigator()
 
 export default () => {
@@ -29,7 +29,7 @@ export default () => {
       })
     return (
         <Stack.Navigator
-            initialRouteName='Home'
+            //initialRouteName='Home'
             screenOptions={{
                 headerShown: false
             }}
@@ -42,6 +42,7 @@ export default () => {
             <Stack.Screen name='MemoryGame' component={MemoryGame} />
             <Stack.Screen name='TicTacToe' component={TicTacToe} />
             <Stack.Screen name='SelectPlayer' component={SelectPlayer} />
+            <Stack.Screen name='About' component={About} />
 
         </Stack.Navigator>
 

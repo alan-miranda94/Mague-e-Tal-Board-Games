@@ -9,7 +9,13 @@ export const tictactoeInitialState = {
   fruits:[],
   characters:CHARACTERS,
   fruits:FRUITS,
-  currentPlayer: 0
+  currentPlayer: 0,
+  playerOne:null,
+  playerTwo:null,
+  fruitOne:null,
+  fruitTwo:null,
+  progressOne:0,
+  progressTwo:.8
 }
 
 export const TictactoeReducer = (state, action) => {
@@ -21,29 +27,38 @@ export const TictactoeReducer = (state, action) => {
         ...state, 
         board:newBoard,
         players:action.payload.players,
-        fruits:action.payload.fruits        
+        fruits:action.payload.fruits ,
+        progressOne:0,
+        progressTwo:0       
       }
 
     case 'PLAY':
       let newB = state.board
-      console.log('STATE play TICTACTOE')
       if(newB[action.payload.row][action.payload.column] !== null) return {...state}
-
       newB[action.payload.row][action.payload.column] = state.currentPlayer
       return {
         ...state,
         board:newB, 
+       
       }
     
+    case 'SELECT':
+      return {
+        ...state,
+        ...action.payload
+      }
+
     case 'MATCH':
-      console.log('TA NO MATCH')
       
       let isMatch = checkMatch(state.board, action.payload.row, action.payload.column, state.currentPlayer)
-     
+      if (!isMatch[2]) return {...state, currentPlayer:state.currentPlayer === 0?1:0}
       return {        
         ...state,
-        board:isMatch,
+        board:isMatch[0],
+        progressOne:state.currentPlayer === 0 ?state.progressOne + isMatch[1]:state.progressOne,
+        progressTwo:state.currentPlayer === 1 ?state.progressTwo + isMatch[1]:state.progressTwo,
         currentPlayer:state.currentPlayer === 0?1:0
+       
       }
 
     case 'SAVE':

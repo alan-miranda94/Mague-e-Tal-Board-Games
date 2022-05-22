@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {
   View,
-  Text,
+  Dimensions,
   Modal,
   StyleSheet,
   TouchableOpacity,
@@ -14,13 +14,17 @@ import Star from '../../components/Star'
 import IMAGE, { DECK } from '../../constants/images'
 import { GameContext } from '../../contexts'
 import AudioManager from '../../constants/AudioManager'
-import Lottie from '../../components/Lottie'
+import Lottie from 'lottie-react-native'
 import LightEffect from '../../assets/Animations/lightEffect.json'
+
+
+const Height = Dimensions.get('window').height
+const Width = Dimensions.get('window').width
 
 export default props => {
   const { state: { memoryGame }, dispatch } = useContext(GameContext)
   const navigation = useNavigation()
- 
+
   const handleCloseButton = () => {
     props.setShow(false)
   }
@@ -56,9 +60,22 @@ export default props => {
                   resizeMode="stretch"
                 />
 
-                <View style={[{ zIndex: -9,  position: "absolute", aspectRatio: 1 / 1, width: 600, }]}>
-                  
-                 <Lottie source={LightEffect}/>
+                <View style={[{ zIndex: -9, position: "absolute", aspectRatio: 1 / 1, width: 600, }]}>
+                  <Lottie
+                    resizeMode={'contain'}
+                    autoSize
+                    autoPlay
+                    loops
+                    ource={LightEffect}
+                  />
+                  <Lottie
+                    // resizeMode={'contain'}
+                    //autoSize
+                    autoPlay
+                    loop
+                    source={LightEffect}
+                    //style={[{ zIndex: -9, position: 'absolute', top: - Height * 0.1, left: - Height * 0.15, height: Height, }]}
+                  />
                 </View>
               </View>
 
@@ -67,11 +84,11 @@ export default props => {
             <View style={styles.areaButton}>
               <Button style={styles.button} type='Btn_Menu' onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MG-Level' }] })} />
               {props.level <= 9 &&
-                <Button 
-                  style={styles.button} 
-                  type='Btn_Play' 
-                  onPressIn = {async ()=> await AudioManager.playAsync(AudioManager.sounds.effects.next)} 
-                  onPress={nextLevel} 
+                <Button
+                  style={styles.button}
+                  type='Btn_Play'
+                  onPressIn={async () => await AudioManager.playAsync(AudioManager.sounds.effects.next)}
+                  onPress={nextLevel}
                 />
               }
               <Button style={styles.button} type='Btn_Restart' onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MemoryGame', params: { level: props.level } }] })} />
@@ -112,7 +129,8 @@ const styles = StyleSheet.create({
     padding: 16
   },
   button: {
-    marginLeft: 8
+    marginLeft: 8,
+    aspectRatio: 1 / 1
   },
   text: {
     fontSize: 32,

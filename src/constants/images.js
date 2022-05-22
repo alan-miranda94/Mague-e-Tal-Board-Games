@@ -5,17 +5,23 @@ import Bg_Day from '../assets/Interface/other/BG_1.png'
 import Bg_Nigth from '../assets/Interface/other/BG_2.png'
 import P_Blue from '../assets/Interface/other/Pedestal_azul.png'
 import P_Red from '../assets/Interface/other/Pedestal_vermelho.png'
+import Bg_About from '../assets/Interface/other/BG_sobre3.png'
+import TextOne_About from '../assets/Interface/other/bg_sobre_texto1.png'
+import TextTwo_About from '../assets/Interface/other/bg_sobre_texto2.png'
 
 //BUTTOM
 import Btn_Play from '../assets/Interface/Button/btn_jogar.png'
 import Btn_Menu from '../assets/Interface/Button/btn_menu.png'
 import Btn_Pause from '../assets/Interface/Button/btn_pausa.png'
 import Btn_Restart from '../assets/Interface/Button/btn_reiniciar.png'
-import Btn_About from '../assets/Interface/Button/btn_sobre.png'
+//import Btn_About from '../assets/Interface/Button/btn_sobre1.png'
 import Btn_Back from '../assets/Interface/Button/btn_voltar.png'
 import Btn_Level from  '../assets/Interface/Button/btn_selecao_fases.png'
-import Btn_MemoryGame from '../assets/Interface/Button/jm.png'
-import Btn_TicTacToe from '../assets/Interface/Button/jv.png'
+import Btn_MemoryGame from '../assets/Interface/Button/BTN_memoria.png'
+import Btn_TicTacToe from '../assets/Interface/Button/BTN_velha.png'
+import Btn_About from '../assets/Interface/Button/BTN_SOBRE.png'
+import Btn_Block from '../assets/Interface/Button/BTN_bloqueado.png'
+
 
 //GAME END
 import Start_Rank_ON from '../assets/Interface/other/estrela_ranque.png'
@@ -152,7 +158,8 @@ export const BUTTONS ={
     Btn_Restart,
     Btn_Level,
     Btn_MemoryGame,
-    Btn_TicTacToe
+    Btn_TicTacToe,
+    Btn_Block,
 
 }
 
@@ -246,7 +253,10 @@ const IMAGE = {
     P_Red,
     P_Blue,
     Bg_Day,
-    Bg_Nigth
+    Bg_Nigth,
+    Bg_About,
+    TextOne_About,
+    TextTwo_About
 }
 
 export default IMAGE;

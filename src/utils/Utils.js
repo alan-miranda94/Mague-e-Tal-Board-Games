@@ -28,6 +28,8 @@ export function startPoints(level) {
 
 export function checkColumnMatch(board, column, row, currentPlayer) {
   let newBoard = copyBoard(board)
+  let valueMatch = 0
+  let isMatch = false
 
   for (let i = 0; i < board.length; i++) {
     const columnOfThree = [i, i + 1, i + 2]
@@ -47,21 +49,25 @@ export function checkColumnMatch(board, column, row, currentPlayer) {
       return board[square][column] === currentPlayer && !isBlank
     })) {
       //SE FOR IGUAL REMOVE AS FRUTAS       
+      valueMatch += 0.1
+      isMatch = true
       columnOfThree.forEach(square => newBoard[square][column] = null)
     }
 
     //VERIFICA SE 3 FRUTAS NA LINHA SÃO IGUAIS
     if (rowOfThree.every(square => {
-      if (square >= board.length) return false
+      if (square >= board.length) return 
       return board[row][square] === currentPlayer && !isBlankRow
     })) {
-      //SE FOR IGUAL REMOVE AS FRUTAS       
+      //SE FOR IGUAL REMOVE AS FRUTAS     
+      valueMatch += 0.1
+      isMatch = true
       rowOfThree.forEach(square => newBoard[row][square] = null)
     }
 
     
   }
-  return newBoard
+  return [newBoard,valueMatch,isMatch]
 }
 
 export function copyBoard(board) {
@@ -94,7 +100,6 @@ export function checkRowMatch2(board, row, currentPlayer) {
   }
   return newBoard
 }
-
 
 
 export function createBoard(row, column) {

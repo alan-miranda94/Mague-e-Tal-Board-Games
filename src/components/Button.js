@@ -20,7 +20,7 @@ const LevelButton = props => {
       onPressIn = {props.onPressIn}
     >
       <Image
-        style={props.imageStyle?props.imageStyle:{ flex: 1}}
+        style={props.imageStyle?props.imageStyle:{ height:'100%', width:'100%'}}
         source={BUTTONS[props.type]}
         resizeMode={props.mode?props.mode:"stretch"}
       />

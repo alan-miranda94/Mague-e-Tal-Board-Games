@@ -20,6 +20,7 @@ import { CHARACTERS, FRUITS } from '../../utils/Contants'
 import IMAGE, { BTN_FRUITS, DECK, TTT_Characters } from '../../constants/images'
 import Button from '../../components/Button'
 import Sprit from '../../components/Lottie'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
@@ -46,6 +47,7 @@ export default function App() {
             }
         })
         navigation.navigate('TicTacToe')
+        //navigation.reset({ index: 0, routes: [{ name: 'TicTacToe'}] })} 
     }
 
     const selectPlayer = (p) => {
@@ -58,20 +60,29 @@ export default function App() {
     }
 
     const selectFruit = (f) => {
-        if (currentPlayer === 0) {
+        if ((currentPlayer === 0) && playerOne) {
             setFruitOne(f.fruit)
+
             setCurrentPlayer(1)
             return
         }
-        setFruitTwo(f.fruit)
-        setCurrentPlayer(0)
-        
-        setTimeout(()=>{
-            setSelecteds(true)
-        },100)
+        if (fruitOne) {
+            setFruitTwo(f.fruit)
+        }
+
+
     }
+    useEffect(() => {
+        if (fruitOne && fruitTwo && playerOne && playerTwo) {
+
+            setSelecteds(true)
+
+        }
+        setShowModal()
+    }, [fruitOne && fruitTwo && playerOne && playerTwo])
 
     const restartSelect = () => {
+        setCurrentPlayer(0)
         setFruitOne(null)
         setFruitTwo(null)
         setPlayerOne(null)
@@ -88,64 +99,80 @@ export default function App() {
                 source={IMAGE.Bg_Game_End}
                 resizeMode="stretch"
             />
-            <View style={{ width: Width * 0.70, alignItems: 'center', justifyContent: "center", opacity: fruitOne && fruitTwo ? 0.3 : 1 }}>
-
-                <FlatList
-                    data={tictactoe.characters}
-                    horizontal={true}
-                    keyExtractor={(item, index) => Math.random()}
-                    contentContainerStyle={{ alignItems: 'center', justifyContent: "center" }}
-                    renderItem={({ item }) => (
-                        <MotiView
+            <View style={
+                {
+                    width: Width * 0.70,
+                    alignItems: 'center',
+                    justifyContent: "center",
+                    opacity: fruitOne && fruitTwo && playerOne && playerTwo ? 0.3 : 1
+                }
+            }>
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: 'center' }}>
+                    {tictactoe.characters.map((item) => (
+                        <MotiView key={Math.random()}
                         >
-                            <TouchableOpacity
-                                disabled={fruitOne && fruitTwo}
+                            <TouchableWithoutFeedback
                                 onPress={() => selectPlayer(item)}
                             >
-                                {playerOne === item.name &&
+
+
+                                <View
+                                    disabled={fruitOne && fruitTwo && playerOne && playerTwo}
+
+                                >
+                                    {playerOne === item.name &&
+                                        <Image
+                                            resizeMode="contain"
+                                            style={[{
+                                                zIndex: 5,
+                                                alignSelf: 'center',
+                                                top: '40%',
+                                                width: 80,
+                                                aspectRatio: 1 / 1,
+                                                position: 'absolute'
+                                            }]}
+                                            source={IMAGE.Marker_P1} />
+                                    }
+                                    {playerTwo === item.name &&
+                                        <Image
+                                            resizeMode="contain"
+                                            style={[{
+                                                zIndex: 5,
+                                                alignSelf: 'center',
+                                                top: '40%',
+                                                width: 80,
+                                                aspectRatio: 1 / 1,
+                                                position: 'absolute',
+                                            }]}
+                                            source={IMAGE.Marker_P2} />
+                                    }
                                     <Image
                                         resizeMode="contain"
-                                        style={[{
-                                            zIndex: 5,
-                                            alignSelf: 'center',
-                                            top: '40%',
-                                            width: 80,
-                                            aspectRatio: 1 / 1,
-                                            position: 'absolute'
-                                        }]}
-                                        source={IMAGE.Marker_P1} />
-                                }
-                                {playerTwo === item.name &&
-                                    <Image
-                                        resizeMode="contain"
-                                        style={[{
-                                            zIndex: 5,
-                                            alignSelf: 'center',
-                                            top: '40%',
-                                            width: 80,
-                                            aspectRatio: 1 / 1,
-                                            position: 'absolute',
-                                        }]}
-                                        source={IMAGE.Marker_P2} />
-                                }
-                                <Image
-                                    resizeMode="contain"
-                                    style={[{ width: (Width * 0.70) / 4, opacity: playerOne === item.character || playerTwo === item.character ? 0.3 : 1 }]}
-                                    source={item.card}
-                                />
-                            </TouchableOpacity>
+                                        style={
+                                            [
+                                                {
+                                                    height: (Height * 0.70),
+                                                    width: (Width * 0.70) / 4,
+                                                    opacity: playerOne === item.character || playerTwo === item.character ? 0.3 : 1
+                                                }
+                                            ]}
+                                        source={item.card}
+                                    />
+                                </View>
+                            </TouchableWithoutFeedback>
                         </MotiView>
-                    )}
-                />
-                <FlatList
-                    data={tictactoe.fruits}
-                    horizontal={true}
-                    keyExtractor={(item) => Math.random()}
-                    contentContainerStyle={{ alignItems: 'center', justifyContent: "center" }}
-                    renderItem={({ item }) => (
-                        <MotiView
+                    ))
+                    }
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    {FRUITS.map((item) => (
+                        <MotiView key={Math.random()}
                         >
-                            <TouchableOpacity disabled={false} style={{}} onPress={() => selectFruit(item)}>
+                            <TouchableOpacity
+                                disabled={fruitOne && fruitTwo && playerOne && playerTwo}
+
+                                onPress={() => selectFruit(item)}
+                            >
                                 {fruitOne === item.fruit &&
                                     <Image
                                         resizeMode="contain"
@@ -153,9 +180,9 @@ export default function App() {
                                             zIndex: 5,
                                             alignSelf: 'center',
                                             //top: '40%', 
-                                            width: 40,
                                             aspectRatio: 1 / 1,
-                                            position: 'absolute'
+                                            position: 'absolute',
+                                            width: Width * 0.05,
                                         }]}
                                         source={IMAGE.Marker_P1} />
                                 }
@@ -165,29 +192,47 @@ export default function App() {
                                         style={[{
                                             zIndex: 5,
                                             alignSelf: 'center',
-                                            //top: '40%', 
-                                            width: 40,
-                                            aspectRatio: 1 / 1,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            //top: 0, 
+                                            width: Width * 0.05,
                                             position: 'absolute'
                                         }]}
                                         source={IMAGE.Marker_P2} />
                                 }
-                                <Image resizeMode="contain" style={[{ width: (Width * 0.65) / 6, marginRight: 4, opacity: fruitOne === item.fruit || fruitTwo === item.fruit ? 0.3 : 1 }]} source={item.card} />
+                                <Image
+                                    resizeMode="contain"
+                                    style={
+                                        [
+                                            {
+                                                //height: (Height * 0.30),
+                                                width: (Width * 0.65) / 6,
+                                                marginRight: 4, opacity: fruitOne === item.fruit || fruitTwo === item.fruit ? 0.3 : 1
+                                            }]} source={item.card}
+                                />
                             </TouchableOpacity>
                         </MotiView>
-                    )}
-                />
+                    ))
+
+                    }
+                </View>
             </View>
 
             {!(fruitOne && fruitTwo && playerOne && playerTwo) &&
-                <Button
-                    style={styles.pauseBt}
+            <View style={styles.pauseBt}>
+               
+                <Button                    
                     // onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
-                    onPress={() => {
-
-                    }}
+                    onPress={() => navigation.goBack()}
+                    type='Btn_Menu'
+                />
+                 <Button                    
+                    // onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
+                    onPress={restartSelect}
                     type='Btn_Restart'
                 />
+            </View>
+
             }
             {selecteds &&
                 <View style={{ zIndex: 6, position: 'absolute', alignItems: 'center', }}>
@@ -195,6 +240,7 @@ export default function App() {
                         from={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         style={{ alignItems: 'center' }}>
+
                         <Button
                             style={{ height: Height / 4, aspectRatio: 1 / 1, }}
                             imageStyle={{ height: Height / 4, aspectRatio: 1 / 1, marginTop: -20 }}
@@ -205,14 +251,23 @@ export default function App() {
                         />
 
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+                        <View 
+                            style={{
+                                flex:1,
+                                height: Height / 8,
+                                
+                                flexDirection: 'row', 
+                                alignItems:'center',
+                                justifyContent: 'space-around', 
+                            }}>
                             <Button
-                                style={{ marginRight: 10 }}
+                               style={{ height:'90%', aspectRatio: 1 / 1, marginRight:10}}
                                 // onPressIn={async()=> await AudioManager.playAsync(AudioManager.sounds.effects.back)}
                                 onPress={restartSelect}
                                 type='Btn_Restart'
                             />
                             <Button
+                                style={{ height:'90%', aspectRatio: 1 / 1, }}
                                 onPressIn={async () => await AudioManager.playAsync(AudioManager.sounds.effects.back)}
                                 onPress={() => navigation.goBack()}
                                 type='Btn_Menu'
@@ -230,7 +285,7 @@ export default function App() {
                             type: 'spring',
                             translateX: {
                                 duration: 1000,
-                                
+
                             },
 
                         }}
@@ -258,7 +313,18 @@ export default function App() {
                             }}
                             source={fruitOne}
                         />
-                        <Image style={{ zIndex: -4, width: '100%', top: -Height * 0.15 }} resizeMode={'contain'} source={IMAGE.P_Blue} />
+                        <Image
+                            style={
+                                {
+                                    zIndex: -4,
+                                    width: '90%',
+                                    height: '30%',
+                                    top: '-15%',
+
+                                }}
+                            resizeMode={'stretch'}
+                            source={IMAGE.P_Blue}
+                        />
                     </MotiView>
                     <MotiView
                         from={{ translateX: Width, transform: [{ rotateY: "-180deg" }] }}
@@ -271,7 +337,7 @@ export default function App() {
                             },
 
                         }}
-                        style={{ zIndex: 5, position: 'absolute', left: Width * 0.25, height: Height * 0.35, }}>
+                        style={{ zIndex: 5, position: 'absolute', left: Width * 0.25, }}>
                         <Sprit //Lottie //PERSONAGENS
                             action={'IDLE'}
                             name={playerTwo}
@@ -279,7 +345,7 @@ export default function App() {
                             style={[{ height: Height / 2, aspectRatio: 1, transform: [{ rotateX: "180deg" }] }]}
                         />
                         <MotiImage
-                            style={{ zIndex: 5, position: 'absolute', right: '0%', top: '10%' }}
+                            style={{ zIndex: 5, position: 'absolute', right: '0%', top: '10%', }}
                             from={{ translateY: 0, rotateZ: '0deg' }}
                             animate={{ translateY: 5, rotateZ: '15deg' }}
                             transition={{
@@ -295,11 +361,20 @@ export default function App() {
                             }}
                             source={fruitTwo}
                         />
-                        <Image style={{ zIndex: -4, width: '100%', top: -Height * 0.15, }} resizeMode={'contain'} source={IMAGE.P_Red} />
+                        <Image
+                            style={{
+                                zIndex: -4,
+                                width: '90%',
+                                height: '30%',
+                                top: '-15%',
+
+                            }}
+                            resizeMode={'stretch'}
+                            source={IMAGE.P_Red} />
                     </MotiView>
 
                 </View>}
-            
+
         </View >
     );
 }
@@ -335,7 +410,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: '2%',
         top: "2%",
-        //height: '15%',
+        height: '15%',
         aspectRatio: 1 / 1
 
     },

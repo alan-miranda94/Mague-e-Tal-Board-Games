@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, Animated, Easing } from 'react-native'
 import Lottie from 'lottie-react-native'
 import Animation from '../constants/Animation'
 
@@ -7,34 +7,44 @@ import Animation from '../constants/Animation'
 
 export default props => {
     const lottieRef = useRef()
-
+   
     useEffect(() => {
-        if (props.action === 'WAITING') {
-            lottieRef
-                .current
-                .play(
-                    Animation[props.name]['WAITING_START'][0],
-                    Animation[props.name]['WAITING_START'][1]
-                )
-            setTimeout(() => {
+        const play = () => {
+            if (props.action === 'WAITING') {
                 lottieRef
                     .current
                     .play(
-                        Animation[props.name]['WAITING_END'][0],
-                        Animation[props.name]['WAITING_END'][1]
+                        Animation[props.name]['WAITING_START'][0],
+                        Animation[props.name]['WAITING_START'][1]
                     )
-            }, 2000)
-            return
-        }
-        lottieRef
-            .current
-            .play(
-                Animation[props.name][props.action][0],
-                Animation[props.name][props.action][1]
-            )
+                setTimeout(() => {
+                    lottieRef
+                        .current
+                        .play(
+                            Animation[props.name]['WAITING_END'][0],
+                            Animation[props.name]['WAITING_END'][1]
+                        )
+                }, 2000)
+                return
+            }
+            lottieRef
+                .current
+                .play(
+                    Animation[props.name][props.action][0],
+                    Animation[props.name][props.action][1]
+                )
 
+        }
+        setTimeout(()=>{
+            play()
+        },100)
+        
 
     }, [props.action])
+
+
+
+
 
     return (
         <Lottie
@@ -44,7 +54,7 @@ export default props => {
             source={Animation[props.name].source}
             autoPlay
             loop
-            style={props.style}//{[{ width: '100%',height: "100%",}]}
+            style={props.style}
         />
     )
 }

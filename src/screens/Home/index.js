@@ -33,6 +33,18 @@ export default function App() {
       name: 'Jogo da Velha',
       screen: 'SelectPlayer',
       cover: BUTTONS.Btn_TicTacToe
+    },
+    {
+      id:3,
+      name:'Block',
+      screen: '',
+      cover:BUTTONS.Btn_Block,
+    },
+    {
+      id:4,
+      name:'Sobre',
+      screen: 'About',
+      cover:BUTTONS.Btn_About,
     }
   ]
 
@@ -100,7 +112,8 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    //bgMusic()
+    //stopBgSong()
+    bgMusic()
     
     setTimeout(() => {
       // lottieRef.current.play(280, 390)
@@ -113,7 +126,7 @@ export default function App() {
   }, [])
 
   const selectGame = (game) => {
-    stopBgSong()
+    //stopBgSong()
     navigation.navigate(game)
   }
 
@@ -198,7 +211,7 @@ export default function App() {
           data={games}
           keyExtractor={item => item.id}
           contentContainerStyle={{ justifyContent: "center", alignItems: 'center', padding: 10 }}
-          ItemSeparatorComponent={() => <View style={{ width: '1%' }} />}
+          //ItemSeparatorComponent={() => <View style={{ width: '1%' }} />}
           horizontal={true}
           //onViewableItemsChanged={onViewableItemsChanged}
           //viewabilityConfig={viewabilityConfig}
@@ -224,7 +237,10 @@ export default function App() {
                 }} >
                 <TouchableOpacity
                   onPressIn={async () => await AudioManager.playAsync(AudioManager.sounds.effects.next)}
-                  onPress={() => selectGame(item.screen)}
+                  onPress={() =>{
+                    //stopBgSong()
+                    item.screen&&selectGame(item.screen)
+                  }}
                   style={
                     {
                       //backgroundColor: 'yellow',
@@ -260,7 +276,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#0230BE',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
   },

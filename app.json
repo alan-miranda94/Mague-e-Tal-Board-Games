@@ -1,9 +1,17 @@
 {
   "expo": {
-    "name": "Mague-e-Tal-Board-Games",
+    "name": "Mague e Tal Board Games",
     "slug": "Mague-e-Tal-Board-Games",
     "version": "1.0.0",
     "orientation": "landscape",
+    "icon": "./src/assets/Marcas/icon.png",
+    "splash": {
+      "image": "./src/assets/Marcas/BG_fim_de_jogo.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#3c3c3c"
+
+     
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -11,5 +19,5 @@
       "package": "com.magueetal.boardgames"
     }
   },
-  "name": "Mague-e-Tal-Board-Games"
+  "name": "Mague e Tal Board Games"
 }
