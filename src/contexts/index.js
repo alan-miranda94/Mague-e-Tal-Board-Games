@@ -12,7 +12,7 @@ const  [gameReducer, initialGame] = combineReducers({
 })
 
 export default ({children}) => {
-  const [state, dispatch] = useReducer(gameReducer,initialGame)
+  const [state, dispatch] = useReducer(MemoryGameReducer, memoryGameInitialState)//(gameReducer,initialGame)
  
   return (
     <GameContext.Provider value={{state, dispatch}}>

@@ -6,6 +6,7 @@ import MainStacks from './navigation/MainStacks'
 import * as Updates from 'expo-updates'
 import { useLoadFonts } from './hooks/useFonts'
 import GameContextProvider from './contexts'
+import { GameLoop } from "react-native-game-engine"
 
 const Theme = {
   ...DefaultTheme,
@@ -35,12 +36,14 @@ export default function App() {
   
 
   return (
+    
     <GameContextProvider>
       <NavigationContainer theme={Theme}>
         <MainStacks/>
         <StatusBar style="auto" hidden = {true} />
       </NavigationContainer>
     </GameContextProvider>
+    
   );
 }
 

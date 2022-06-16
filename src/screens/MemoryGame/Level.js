@@ -12,7 +12,7 @@ const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
 
 const App = () => {
-  const { state: { memoryGame }, dispatch } = useContext(GameContext)
+  const { state: memoryGame, dispatch } = useContext(GameContext)
   const [level, setLevel] = useState([])
   const navigation = useNavigation()
 

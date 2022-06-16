@@ -18,12 +18,14 @@ import Button from '../../components/Button'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { createBoard, checkRowMatch, checkMatch, copyBoard } from '../../utils/Utils'
 
+import ButtonFruit from '../../components/ButtonFruit'
+
 const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
 //import { checkColumnMatch } from '../../utils/Utils'
 
 export default function App() {
-    const { state: { tictactoe }, dispatch } = useContext(GameContext)
+    const { state: tictactoe, dispatch } = useContext(GameContext)
     const navigation = useNavigation()
     const [board, setBoard] = useState(null)
     const [tempBoard, setTempBoard] = useState(null)
@@ -65,6 +67,7 @@ export default function App() {
 
 
     const play = (row, column) => {
+        console.log('TTT INDEX')
         dispatch({
             type: 'PLAY',
             payload: {
@@ -82,17 +85,11 @@ export default function App() {
                     column: column,
                 }
             })
-        }, 1000)
-
-
+        }, 10)
 
     }
-    const match = (row, column) => {
 
-
-
-
-    }
+ 
 
 
     return (
@@ -121,7 +118,7 @@ export default function App() {
                 />
                 <View>
                     <Sprit //Lottie //Play one
-                        action={currentPlayer ? 'IDLE' : 'WAITING'}
+                        action={tictactoe.currentPlayer ? 'WAITING':'IDLE'}
                         name={tictactoe.players[0]}
                         resizeMode={'cover'}
                         style={[{ height: Height / 2, aspectRatio: 1, }]}
@@ -138,70 +135,77 @@ export default function App() {
                         {
                             row.map((column, numberColumn) => {
                                 return (
-                                    <TouchableWithoutFeedback key={Math.random()}
+                                    <ButtonFruit
+                                        player={tictactoe.currentPlayer}
+                                        //fruits = {fruits}
+                                        fruit = {fruits[column]}
                                         onPress={column ? null : () => play(numberRow, numberColumn)}
-                                    >
+                                    />
+                                    // <TouchableWithoutFeedback key={Math.random()}
+                                    //     onPress={column ? null : () => play(numberRow, numberColumn)}
+                                    // >
 
 
-                                        <View
-                                            activeOpacity={0}
-                                            key={Math.random()}
-                                            style={[styles.boxPlay, { alignItems: 'center', justifyContent: 'center' }]}
-                                        >
-                                            <AnimatePresence >
-                                                {
-                                                    (<MotiImage
-                                                        from={{ opacity: 1 }}
-                                                        animate={{ opacity: 1 }}
-                                                        delay={200}
-                                                        exit={{
-                                                            opacity: 0,
-                                                        }}
-                                                        key={'null'}
-                                                        style={{ position: 'absolute', width: '100%', height: '100%' }}
-                                                        source={IMAGE.Block_White}
-                                                    />)
-                                                }
+                                    //     <View
+                                    //         activeOpacity={0}
+                                    //         key={Math.random()}
+                                    //         style={[styles.boxPlay, { alignItems: 'center', justifyContent: 'center' }]}
+                                    //     >
+                                    //         <AnimatePresence >
+                                    //             {
+                                    //                 (<MotiImage
+                                    //                     from={{ opacity: 1 }}
+                                    //                     animate={{ opacity: 1 }}
+                                    //                     delay={200}
+                                    //                     exit={{
+                                    //                         opacity: 0,
+                                    //                     }}
+                                    //                     key={'null'}
+                                    //                     style={{ position: 'absolute', width: '100%', height: '100%' }}
+                                    //                     source={IMAGE.Block_White}
+                                    //                 />)
+                                    //             }
 
-                                                {column === 0 &&
-                                                    (<MotiImage
-                                                        key={'one'}
-                                                        style={{ width: '100%', height: '100%' }}
-                                                        source={IMAGE.Block_Blue}
-                                                    />)
-                                                }
-                                                {column === 1 &&
-                                                    (<MotiImage
-                                                        key={'two'}
-                                                        style={{ width: '100%', height: '100%' }}
-                                                        source={IMAGE.Block_Red}
-                                                    />)
-                                                }
-                                                {column !== null &&
-                                                    (<MotiImage
-                                                        // from={{
-                                                        //     opacity: 0,
-                                                        //     //scale: 0.3
-                                                        // }}
-                                                        // animate={{
-                                                        //     //scale: 1,
-                                                        //     opacity: 1,
-                                                        // }}
-                                                        // exit={{
-                                                        //     scale: 0.3,
-                                                        //     opacity: 0,
-                                                        // }}
+                                    //             {column === 0 &&
+                                    //                 (<MotiImage
+                                    //                     key={'one'}
+                                    //                     style={{ width: '100%', height: '100%' }}
+                                    //                     source={IMAGE.Block_Blue}
+                                    //                 />)
+                                    //             }
+                                    //             {column === 1 &&
+                                    //                 (<MotiImage
+                                    //                     key={'two'}
+                                    //                     style={{ width: '100%', height: '100%' }}
+                                    //                     source={IMAGE.Block_Red}
+                                    //                 />)
+                                    //             }
+                                    //             {column !== null &&
+                                    //                 (<MotiImage
+                                    //                     // from={{
+                                    //                     //     opacity: 0,
+                                    //                     //     //scale: 0.3
+                                    //                     // }}
+                                    //                     // animate={{
+                                    //                     //     //scale: 1,
+                                    //                     //     opacity: 1,
+                                    //                     // }}
+                                    //                     // exit={{
+                                    //                     //     scale: 0.3,
+                                    //                     //     opacity: 0,
+                                    //                     // }}
 
-                                                        key={'fruit'}
-                                                        style={{ position: 'absolute', width: '80%', height: '80%' }}
-                                                        source={fruits[column]}
-                                                        resizeMode="cover"
-                                                    />)
-                                                }
-                                            </AnimatePresence>
+                                    //                     key={'fruit'}
+                                    //                     style={{ position: 'absolute', width: '80%', height: '80%' }}
+                                    //                     source={fruits[column]}
+                                    //                     resizeMode="cover"
+                                    //                 />)
+                                    //             }
+                                    //         </AnimatePresence>
 
-                                        </View>
-                                    </TouchableWithoutFeedback>)
+                                    //     </View>
+                                    // </TouchableWithoutFeedback>
+                                    )
                             })
                         }
                     </View>
@@ -229,7 +233,7 @@ export default function App() {
                 />
                 <View>
                     <Sprit //Lottie //PERSONAGENS
-                        action={currentPlayer ? 'WAITING' : 'IDLE'}
+                        action={tictactoe.currentPlayer ?  'IDLE':'WAITING' }
                         name={tictactoe.players[1]}
                         resizeMode={'cover'}
                         style={[{ height: Height / 2, aspectRatio: 1, }]}

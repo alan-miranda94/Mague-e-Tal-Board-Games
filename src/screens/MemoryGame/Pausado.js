@@ -5,11 +5,16 @@ import {
   Text,
   Modal,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 }
   from 'react-native'
 import Button from '../../components/Button';
 import AudioManager from '../../constants/AudioManager'
+
+
+const Height = Dimensions.get('window').height
+const Width = Dimensions.get('window').width
 
 export default props => {
   const navigation = useNavigation()
@@ -61,7 +66,8 @@ const styles = StyleSheet.create({
   },
   areaButton: {
     flexDirection: "row",
-    height:110,
+    //height:110,
+    height: '20%',
     padding: 16,
     justifyContent: 'space-around',
     backgroundColor: 'black',
@@ -72,9 +78,9 @@ const styles = StyleSheet.create({
 
   },
   button: {
-   
-    width:'10%',
-    marginLeft: 8
+    //width:'10%',
+    marginLeft: 8,
+    aspectRatio:1/1
   },
   text: {
     fontSize: 32,

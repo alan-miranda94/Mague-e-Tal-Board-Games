@@ -26,7 +26,7 @@ const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
 
 export default function App() {
-    const { state: { tictactoe }, dispatch } = useContext(GameContext)
+    const { state: tictactoe, dispatch } = useContext(GameContext)
     const navigation = useNavigation()
     const [currentPlayer, setCurrentPlayer] = useState(0)
     const [playerOne, setPlayerOne] = useState(null)

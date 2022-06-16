@@ -22,7 +22,7 @@ const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
 
 export default props => {
-  const { state: { memoryGame }, dispatch } = useContext(GameContext)
+  const { state: memoryGame, dispatch } = useContext(GameContext)
   const navigation = useNavigation()
 
   const handleCloseButton = () => {

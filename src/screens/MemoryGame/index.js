@@ -18,7 +18,7 @@ const Height = Dimensions.get('window').height
 const Width = Dimensions.get('window').width
 
 function GameScreen({ route }) {
-  const {state:{memoryGame}, dispatch} = useContext(GameContext)
+  const {state:memoryGame, dispatch} = useContext(GameContext)
   const { level } = route.params
   const [showModal, setShowModal] = useState(false)
   const [showWin, setShowWin] = useState(false)
